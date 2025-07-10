@@ -5,11 +5,15 @@ import JournalForm from "./components/JournalForm";
 import JournalHistory from "./components/JournalHistory";
 import { useAuth } from "./context/useAuth";
 
+
 function App() {
   const { token } = useAuth();
   return (
     <Router>
       <Routes>
+         
+      
+        {/* <Route path="/" element={<DarkModeToggle />} /> */}
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
         <Route path="/dashboard" element={
@@ -22,10 +26,8 @@ function App() {
             <Login />
           )
         } />
-      
       </Routes>
     </Router>
-   
   );
 }
 

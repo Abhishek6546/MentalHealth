@@ -42,4 +42,23 @@ router.get("/", authMiddleware, async (req, res) => {
   }
 });
 
+router.get("/moods/:userId", async (req, res) => {
+  const { userId } = req.params;
+
+  try {
+    const entries = await Journal.find({ userId }).sort({ date: 1 });
+
+    const moodData = entries.map((entry) => ({
+      date: entry.date.toISOString().split("T")[0],
+      mood: entry.mood,
+      thought: entry.thought,
+      aiReply: entry.aiReply,
+    }));
+   console.log("moodData",moodData);
+    res.json(moodData);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to fetch moods" });
+  }
+});
+
 module.exports = router;
