@@ -37,7 +37,7 @@ const Login = () => {
         alert("Login failed. Please check credentials.");
       }
     } catch (error) {
-      alert("Something went wrong.");
+      console.log("Something went wrong.",error);
     } finally { 
       setIsLoading(false);
     }
