@@ -25,6 +25,6 @@ export const fetchJournal = async (token: string) => {
       "Authorization": `Bearer ${token}`
     }
   });
-  console.log("res frontend",res)
+  
   return res.json();
 };

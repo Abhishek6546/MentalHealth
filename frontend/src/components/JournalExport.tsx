@@ -12,23 +12,24 @@ const JournalExport = ({ userId }: { userId: string }) => {
   const [entries, setEntries] = useState<Entry[]>([]);
 
   useEffect(() => {
+    if (!userId) return; // ⛔ skip fetch if userId is undefined
+  
     const fetchEntries = async () => {
       try {
         const res = await fetch(`http://localhost:5000/api/journal/moods/${userId}`);
-        if (!res.ok) {
+         if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`);
         }
-        
         const data = await res.json();
-        console.log("data",data);
         setEntries(data);
       } catch (error) {
         console.error("Failed to fetch journal entries:", error);
-        // You might want to display an error message to the user
       }
     };
+  
     fetchEntries();
   }, [userId]);
+  
 
   const downloadPDF = () => {
     const doc = new jsPDF();
