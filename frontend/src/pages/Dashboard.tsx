@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import JournalForm from "../components/JournalForm";
 import JournalHistory from "../components/JournalHistory";
 import { AuthContext } from "../context/AuthContext"; // update path if needed
+import HabitTracker from "../components/HabitTracker";
 
 function Dashboard() {
   const { token } = useContext(AuthContext);
@@ -18,6 +19,7 @@ function Dashboard() {
     <div>
       <JournalForm />
       <JournalHistory />
+      <HabitTracker/>
     </div>
   );
 }

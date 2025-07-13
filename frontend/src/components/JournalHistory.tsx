@@ -6,12 +6,13 @@ import { jwtDecode } from "jwt-decode";
 import JournalExport from "./JournalExport";
 import DarkModeToggle from "./DarkModeToggle";
 
-type JournalEntry = {
+interface JournalEntry {
   _id: string;
   thought: string;
   mood: string;
+  aiReply?: string;
   date: string;
-};
+}
 
 type TokenPayload = {
   id: string; // or _id, depending on how you signed your token
@@ -42,6 +43,12 @@ const JournalHistory = () => {
           <p className="text-gray-700">{entry.thought}</p>
           <div className="text-sm text-gray-500">
             Mood: {entry.mood} | {new Date(entry.date).toLocaleString()}
+            {entry.aiReply && (
+              <div className="mt-2 p-3 bg-green-100 border border-green-300 rounded">
+                <p className="text-green-700 font-semibold">AI says:</p>
+                <p className="text-gray-800 mt-1 whitespace-pre-line">{entry.aiReply}</p>
+              </div>
+            )}
           </div>
         </div>
       ))}

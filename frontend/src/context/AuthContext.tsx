@@ -2,20 +2,37 @@
 import { useEffect, useState } from "react";
 import type { ReactNode } from "react";
 import { AuthContext } from "./AuthContext";
-
-
-
+import { useNavigate } from "react-router-dom";
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [token, setToken] = useState<string | null>(() => localStorage.getItem("token"));
+  const [user, setUser] = useState(null);
+  const navigate = useNavigate();
+  const logout=()=>{
+    localStorage.removeItem("token")
+     navigate("/login")
+  }
+  const fetchUserProfile= async()=>{
+    const res =await fetch('http://localhost:5000/api/auth/user',{
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    })
+   if(!res.ok){
+    throw "user proile not fetched"
+   }
+    const data= await res.json();
+    setUser(data.user)
+  }
 
   useEffect(() => {
     const saved = localStorage.getItem("token");
-    
     if (saved) setToken(saved);
-  }, []);
+    if (token) fetchUserProfile(); // fetch only if token exists
+  }, [token]);
+  
 
   return (
-    <AuthContext.Provider value={{ token, setToken }}>
+    <AuthContext.Provider value={{ token, setToken,logout,user }}>
       {children}
     </AuthContext.Provider>
   );
