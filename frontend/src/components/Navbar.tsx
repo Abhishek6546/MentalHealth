@@ -20,7 +20,7 @@ function Navbar() {
           <Link to="/therapy" className="hover:text-gray-200 transition">Therapy</Link>
         </li>
         <li>
-          <Link to="/resources" className="hover:text-gray-200 transition">Resources</Link>
+        <Link to="/exercise"> Exercise</Link>
         </li>
         <li>
           <Link to="/contact" className="hover:text-gray-200 transition">Contact</Link>

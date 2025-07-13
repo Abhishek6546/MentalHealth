@@ -62,4 +62,33 @@ console.log("gg",userId)
   }
 });
 
+router.get("/streak", authMiddleware, async (req, res) => {
+  const entries = await Journal.find({ userId: req.user.id }).sort({ date: -1 });
+
+  const datesSet = new Set(
+    entries.map((entry) =>
+      new Date(entry.date).toISOString().split("T")[0] // only YYYY-MM-DD
+    )
+  );
+  
+  const today = new Date();
+  let streak = 0;
+  let totalDays = datesSet.size;
+
+  for (let i = 0; i < 1000; i++) {
+    const day = new Date(today);
+    day.setDate(today.getDate() - i);
+    const key = day.toISOString().split("T")[0];
+
+    if (datesSet.has(key)) {
+      streak++;
+    } else {
+      break;
+    }
+  }
+
+  res.json({ totalDays, streak });
+});
+
+
 module.exports = router;
