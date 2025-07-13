@@ -2,6 +2,7 @@ const express = require("express");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User.js");
+const authMiddleware = require("../middleware/authMiddleware.js");
 
 const router = express.Router();
 // Signup
@@ -39,5 +40,15 @@ router.post("/login", async (req, res) => {
     res.status(500).json({ error: "Login failed" });
   }
 });
+
+router.get("/user",authMiddleware,async(req,res)=>{
+  try {
+    const user = await User.findOne({ _id: req.user.id });
+    if (!user) return res.status(400).json({ message: "User not found" });
+    res.status(200).json({user});
+  } catch (err) {
+    res.status(500).json({ error: "profile fetching failed" });
+  }
+})
 
 module.exports = router;
