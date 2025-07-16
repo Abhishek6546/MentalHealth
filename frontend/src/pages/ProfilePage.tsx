@@ -2,6 +2,11 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../context/useAuth";
 import { useNavigate } from "react-router-dom";
 
+export interface UserType {
+  name?: string;
+  email: string;
+  // add more fields if your backend returns them
+}
 const ProfilePage = () => {
   const { user, token, logout } = useAuth();
   const [entryCount, setEntryCount] = useState(0);

@@ -3,9 +3,11 @@ import { useEffect, useState } from "react";
 import type { ReactNode } from "react";
 import { AuthContext } from "./AuthContext";
 import { useNavigate } from "react-router-dom";
+import type { UserType } from "../pages/ProfilePage";
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [token, setToken] = useState<string | null>(() => localStorage.getItem("token"));
-  const [user, setUser] = useState(null);
+  
+const [user, setUser] = useState<UserType | null>(null);
   const navigate = useNavigate();
   const logout=()=>{
     localStorage.removeItem("token")
