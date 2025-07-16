@@ -7,6 +7,8 @@ import Footer from "./components/Footer";
 import Dashboard from "./pages/Dashboard";
 import ProfilePage from "./pages/ProfilePage";
 import Exercise from "./pages/Exercise";
+import ResourcesPage from "./pages/ResourcesPage";
+import JournalHistory from "./components/JournalHistory";
 
 
 function App() {
@@ -20,6 +22,8 @@ function App() {
         <Route path="/dashboard" element={<Dashboard/>} />
         <Route path="/Exercise" element={<Exercise/>} />
         <Route path="/profile" element={<ProfilePage/>} />
+        <Route path="/resources" element={<ResourcesPage />} />
+        <Route path="/journal-history" element={<JournalHistory />} />
       </Routes>
       <Footer/>
    </div>

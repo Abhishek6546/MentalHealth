@@ -11,10 +11,10 @@ function Navbar() {
       {/* Navigation Links */}
       <ul className="flex space-x-6 text-sm md:text-base">
         <li>
-          <Link to="/" className="hover:text-gray-200 transition">Home</Link>
+          <Link to="/dashboard" className="hover:text-gray-200 transition">Dashboard</Link>
         </li>
         <li>
-          <Link to="/about" className="hover:text-gray-200 transition">About</Link>
+          <Link to="/resources" className="hover:text-gray-200 transition">Resources</Link>
         </li>
         <li>
           <Link to="/therapy" className="hover:text-gray-200 transition">Therapy</Link>
@@ -23,7 +23,7 @@ function Navbar() {
         <Link to="/exercise"> Exercise</Link>
         </li>
         <li>
-          <Link to="/contact" className="hover:text-gray-200 transition">Contact</Link>
+          <Link to="/profile" className="hover:text-gray-200 transition">profile</Link>
         </li>
       </ul>
     </nav>
