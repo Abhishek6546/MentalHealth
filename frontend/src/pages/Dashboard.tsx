@@ -1,25 +1,45 @@
-import { useContext, useEffect } from "react";
+import {  useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import JournalForm from "../components/JournalForm";
-import JournalHistory from "../components/JournalHistory";
-import { AuthContext } from "../context/AuthContext"; // update path if needed
+import MoodChart from "../components/MoodChart";
+import { useAuth } from "../context/useAuth";
+import { jwtDecode } from "jwt-decode";
+import JournalExport from "../components/JournalExport";
 import HabitTracker from "../components/HabitTracker";
 
+type TokenPayload = {
+  id: string; // or _id, depending on how you signed your token
+};
 function Dashboard() {
-  const { token } = useContext(AuthContext);
+ 
   const navigate = useNavigate();
-
+   const { token } = useAuth();
+    
+    const [userId, setUserId] = useState<string>("");
   useEffect(() => {
     if (!token) {
       navigate("/login");
     }
+     const getData = async () => {
+          if (token) {
+            const decoded = jwtDecode<TokenPayload>(token);
+            console.log("Decoded token:", decoded);
+            setUserId(decoded.id); // or decoded._id
+          }
+        };
+        getData();
   }, [token, navigate]);
 
   return (
     <div>
       <JournalForm />
-      <JournalHistory />
-      <HabitTracker/>
+      <button onClick={() => navigate("/journal-history")}>
+        View History
+      </button>
+      <HabitTracker />
+
+        {userId && <MoodChart userId={userId} />}
+       <JournalExport userId={userId} />
     </div>
   );
 }

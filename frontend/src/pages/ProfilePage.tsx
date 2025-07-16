@@ -14,7 +14,8 @@ const ProfilePage = () => {
     }
 
     const fetchCount = async () => {
-      const res = await fetch("http://localhost:5000/api/journal", {
+      const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:5000/";
+      const res = await fetch(`${apiUrl}api/journal`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await res.json();

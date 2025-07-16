@@ -12,12 +12,14 @@ const HabitTracker = () => {
 
   useEffect(() => {
     const fetchStreak = async () => {
-      const res = await fetch("http://localhost:5000/api/journal/streak", {
+      const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:5000/";
+
+      const res = await fetch(`${apiUrl}api/journal/streak`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-
+   
       const result = await res.json();
       setData(result);
     };

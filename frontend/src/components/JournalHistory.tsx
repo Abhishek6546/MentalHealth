@@ -1,10 +1,9 @@
-import { useEffect, useState } from "react";
+import {  useEffect, useState} from "react";
 import { fetchJournal } from "../services/api";
 import { useAuth } from "../context/useAuth";
-import MoodChart from "./MoodChart";
 import { jwtDecode } from "jwt-decode";
-import JournalExport from "./JournalExport";
-import DarkModeToggle from "./DarkModeToggle";
+import { useNavigate } from "react-router-dom";
+
 
 interface JournalEntry {
   _id: string;
@@ -21,20 +20,25 @@ type TokenPayload = {
 const JournalHistory = () => {
   const { token } = useAuth();
   const [entries, setEntries] = useState<JournalEntry[]>([]);
-  const [userId, setUserId] = useState<string>("");
+  const navigate = useNavigate();
 
   useEffect(() => {
+   
+    if (!token) {
+      navigate("/login");
+    }
+
     const getData = async () => {
+     
       if (token) {
         const decoded = jwtDecode<TokenPayload>(token);
         console.log("Decoded token:", decoded);
-        setUserId(decoded.id); // or decoded._id
         const data = await fetchJournal(token);
         setEntries(data);
       }
     };
     getData();
-  }, [token]);
+  }, [navigate, token]);
 
   return (
     <div className="">
@@ -52,9 +56,7 @@ const JournalHistory = () => {
           </div>
         </div>
       ))}
-      {userId && <MoodChart userId={userId} />}
-      <JournalExport userId={userId} />
-     <DarkModeToggle/>
+    
     </div>
   );
 };

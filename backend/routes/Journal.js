@@ -11,7 +11,7 @@ router.post("/", authMiddleware, async (req, res) => {
   const { thought, mood } = req.body;
 
   try {
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
     const prompt = `You are a kind and empathetic mental health assistant. A user shared: "${thought}". Reply with a short, comforting and positive message.`;
     const result = await model.generateContent(prompt);
     const aiReply = result.response.text();
@@ -33,18 +33,20 @@ router.post("/", authMiddleware, async (req, res) => {
 
 router.get("/", authMiddleware, async (req, res) => {
   try {
-    console.log("req.user.id",req.user.id)
+   
     const entries = await Journal.find({ userId: req.user.id }).sort({ date: -1 });
-    console.log("entries",entries)
+    
     res.json(entries);
   } catch (err) {
     res.status(500).json({ error: err });
   }
 });
 
+
+
 router.get("/moods/:userId", async (req, res) => {
   const { userId } = req.params;
-console.log("gg",userId)
+
   try {
     const entries = await Journal.find({ userId }).sort({ date: 1 });
 
@@ -55,7 +57,7 @@ console.log("gg",userId)
     //   aiReply: entry.aiReply,
     // }));
   //  console.log("moodData",moodData);
-  console.log("entries",entries)
+
     res.json(entries);
   } catch (error) {
     res.status(500).json({ error: "Failed to fetch moods" });

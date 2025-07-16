@@ -1,7 +1,7 @@
-export const API = "http://localhost:5000/api";
+ const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:5000/";
 
 export const loginUser = async (email: string, password: string) => {
-  const res = await fetch(`${API}/auth/login`, {
+  const res = await fetch(`${apiUrl}api/auth/login`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ email, password }),
@@ -10,7 +10,7 @@ export const loginUser = async (email: string, password: string) => {
 };
 
 export const signupUser = async (name: string, email: string, password: string) => {
-    const res = await fetch(`${API}/auth/signup`, {
+    const res = await fetch(`${apiUrl}api/auth/signup`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ name, email, password }),
@@ -19,8 +19,8 @@ export const signupUser = async (name: string, email: string, password: string) 
 };
 
 export const fetchJournal = async (token: string) => {
-  
-  const res = await fetch(`${API}/journal`, {
+ 
+  const res = await fetch(`${apiUrl}api/journal`, {
     headers: {
       "Authorization": `Bearer ${token}`
     }
