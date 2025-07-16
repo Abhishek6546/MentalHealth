@@ -13,11 +13,12 @@ const JournalExport = ({ userId }: { userId: string }) => {
 
   useEffect(() => {
     if (!userId) return; // ⛔ skip fetch if userId is undefined
-  
+
     const fetchEntries = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/journal/moods/${userId}`);
-         if (!res.ok) {
+         const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:5000/";
+        const res = await fetch(`${apiUrl}api/journal/moods/${userId}`);
+        if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`);
         }
         const data = await res.json();
@@ -26,10 +27,10 @@ const JournalExport = ({ userId }: { userId: string }) => {
         console.error("Failed to fetch journal entries:", error);
       }
     };
-  
+
     fetchEntries();
   }, [userId]);
-  
+
 
   const downloadPDF = () => {
     const doc = new jsPDF();
@@ -39,10 +40,10 @@ const JournalExport = ({ userId }: { userId: string }) => {
     const maxWidth = pageWidth - 2 * margin; // Max width for text content
 
     entries.forEach((entry) => {
-      
+
       const entryTitle = `Date: ${entry.date.slice(0, 10)}\nMood: ${entry.mood}`;
       const entryThought = `Thought: ${entry.thought}`;
-      const entryFeedback = `AI Feedback: ${entry.aiReply  || "N/A"}`;
+      const entryFeedback = `AI Feedback: ${entry.aiReply || "N/A"}`;
       const separator = "------------------------------";
 
       // Split each part of the entry to fit within the page width

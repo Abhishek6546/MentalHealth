@@ -29,6 +29,7 @@ const JournalHistory = () => {
     }
 
     const getData = async () => {
+     
       if (token) {
         const decoded = jwtDecode<TokenPayload>(token);
         console.log("Decoded token:", decoded);
