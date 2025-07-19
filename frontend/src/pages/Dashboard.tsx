@@ -33,7 +33,7 @@ function Dashboard() {
   return (
     <div>
       <JournalForm />
-      <button onClick={() => navigate("/journal-history")}>
+      <button className="ml-[20px] bg-blue-400  px-2.5 py-1 rounded-2xl" onClick={() => navigate("/journal-history")}>
         View History
       </button>
       <HabitTracker />

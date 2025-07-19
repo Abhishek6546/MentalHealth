@@ -47,7 +47,7 @@ function Home() {
               Our AI companion is always here to listen, comfort, and guide you through your emotional journey — day or night.
             </p>
             <Link
-              to="/get-started"
+              to="/dashboard"
               className="inline-flex items-center gap-2 bg-[hashtag#f9d477] text-[hashtag#1e1232] font-semibold px-6 py-3 rounded-full shadow hover:bg-[hashtag#f7ca52] transition"
             >
               Talk to Our AI →
