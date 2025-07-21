@@ -6,6 +6,7 @@ import { useAuth } from "../context/useAuth";
 import { jwtDecode } from "jwt-decode";
 import JournalExport from "../components/JournalExport";
 import HabitTracker from "../components/HabitTracker";
+import { useTheme } from "../context/ThemeContext";
 
 type TokenPayload = {
   id: string; // or _id, depending on how you signed your token
@@ -14,6 +15,7 @@ function Dashboard() {
  
   const navigate = useNavigate();
    const { token } = useAuth();
+   const {mode}=useTheme();
     
     const [userId, setUserId] = useState<string>("");
   useEffect(() => {
@@ -31,9 +33,19 @@ function Dashboard() {
   }, [token, navigate]);
 
   return (
-    <div>
+    <div
+       className={`min-h-screen px-4 py-6 transition-colors duration-300 ${
+        mode === "dark" ? "bg-gray-900 text-white" : "bg-white text-[#1e1232]"
+      }`}
+    >
       <JournalForm />
-      <button className="ml-[20px] bg-blue-400  px-2.5 py-1 rounded-2xl" onClick={() => navigate("/journal-history")}>
+      <button  className={`ml-[20px] mt-4 px-3 py-1.5 rounded-2xl font-medium transition ${
+          mode === "dark"
+            ? "bg-yellow-400 text-[#1e1232] hover:bg-yellow-300"
+            : "bg-blue-400 text-white hover:bg-blue-500"
+        }`}
+        onClick={() => navigate("/journal-history")}
+      >
         View History
       </button>
       <HabitTracker />

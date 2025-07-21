@@ -1,4 +1,5 @@
 import { useState, useRef } from "react";
+import { useTheme } from "../context/ThemeContext";
 
 const tracks = [
   { name: "Forest Calm", src: "/sounds/meditation1.mp3" },
@@ -9,6 +10,7 @@ const MeditationAudio = () => {
   const [current, setCurrent] = useState<string | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
+  const { mode } = useTheme();
 
   const handlePlay = (trackSrc: string) => {
     if (current === trackSrc && isPlaying) {
@@ -26,7 +28,11 @@ const MeditationAudio = () => {
 
 
   return (
-    <div className="max-w-md mx-auto bg-white p-6 rounded shadow mt-6">
+    <div 
+       className={`max-w-md mx-auto p-6 rounded shadow mt-6 ${
+        mode === "dark" ? "bg-gray-900 text-white" : "bg-white"
+      }`}
+    >
       <h2 className="text-xl font-bold mb-4">🎵 Meditation Music</h2>
 
       {tracks.map((track) => (
@@ -52,7 +58,9 @@ const MeditationAudio = () => {
             src={current} 
             controls 
             autoPlay 
-            className="w-full"
+            className={`w-full ${
+              mode === "dark" ? "bg-gray-800" : "bg-white"
+            }`}
             onEnded={() => {
               setIsPlaying(false);
               setCurrent(null);

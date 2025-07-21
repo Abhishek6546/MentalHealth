@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { jsPDF } from "jspdf";
+import { useTheme } from "../context/ThemeContext";
 
 type Entry = {
   date: string;
@@ -10,6 +11,7 @@ type Entry = {
 
 const JournalExport = ({ userId }: { userId: string }) => {
   const [entries, setEntries] = useState<Entry[]>([]);
+   const { mode } = useTheme();
 
   useEffect(() => {
     if (!userId) return; // ⛔ skip fetch if userId is undefined
@@ -105,17 +107,28 @@ AI Feedback: ${entry.aiReply || "N/A"}
   };
 
   return (
-    <div className="text-center mt-6">
+    <div className={`text-center mt-6 transition-colors duration-300 ${
+        mode === "dark" ? "text-white" : "text-[#1e1232]"
+      }`}
+    >
       <h2 className="text-lg font-semibold mb-2">Export Your Journal</h2>
       <button
         onClick={downloadPDF}
-        className="bg-blue-500 text-white px-4 py-2 rounded mr-2 hover:bg-blue-600"
+       className={`px-4 py-2 rounded mr-2 transition ${
+          mode === "dark"
+            ? "bg-yellow-400 text-[#1e1232] hover:bg-yellow-300"
+            : "bg-blue-500 text-white hover:bg-blue-600"
+        }`}
       >
         Download PDF
       </button>
       <button
         onClick={downloadText}
-        className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+      className={`px-4 py-2 rounded transition ${
+          mode === "dark"
+            ? "bg-green-400 text-[#1e1232] hover:bg-green-300"
+            : "bg-green-500 text-white hover:bg-green-600"
+        }`}
       >
         Download TXT
       </button>

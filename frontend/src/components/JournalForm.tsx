@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../context/useAuth";
+import { useTheme } from "../context/ThemeContext";
 
 const JournalForm = () => {
   const [thought, setThought] = useState("");
@@ -8,6 +9,7 @@ const JournalForm = () => {
   const [loading, setLoading] = useState(false);
   const [entryCount, setEntryCount] = useState(0); // 🔴 new state
   const { token } = useAuth();
+  const { mode } = useTheme();
 
   const MAX_ENTRIES = 10;
 
@@ -63,11 +65,14 @@ const JournalForm = () => {
   const limitReached = entryCount >= MAX_ENTRIES;
 
   return (
-    <div className="max-w-xl mx-auto p-4 bg-white rounded shadow">
+    <div className={`max-w-xl mx-auto p-4 rounded shadow transition-colors duration-300 ${
+        mode === "dark" ? "bg-gray-800 text-white" : "bg-white text-[#1e1232]"
+      }`}
+    >
       <h2 className="text-xl font-bold mb-2">Write Your Thought</h2>
 
       {/* Entry Count Message */}
-      <p className="text-sm text-gray-600 mb-3">
+      <p className={`text-sm mb-3 ${mode === "dark" ? "text-gray-400" : "text-gray-600"}`}>
         {limitReached
           ? "You have reached the 10 journal entry limit."
           : `Entries left: ${entriesLeft}/10`}
@@ -75,7 +80,11 @@ const JournalForm = () => {
 
       <form onSubmit={handleSubmit}>
         <textarea
-          className="w-full p-2 border border-gray-300 rounded mb-3"
+           className={`w-full p-2 rounded mb-3 resize-none transition ${
+            mode === "dark"
+              ? "bg-gray-700 text-white border border-gray-600 placeholder-gray-400"
+              : "bg-white text-black border border-gray-300"
+          }`}
           rows={5}
           placeholder="What's on your mind?"
           value={thought}
@@ -86,8 +95,12 @@ const JournalForm = () => {
         <select
           value={mood}
           onChange={(e) => setMood(e.target.value)}
-          className="w-full p-2 border border-gray-300 rounded mb-3"
           disabled={limitReached}
+           className={`w-full p-2 rounded mb-3 transition ${
+            mode === "dark"
+              ? "bg-gray-700 text-white border border-gray-600"
+              : "bg-white text-black border border-gray-300"
+          }`}
         >
           <option>Happy</option>
           <option>Sad</option>
@@ -98,9 +111,11 @@ const JournalForm = () => {
         <button
           type="submit"
           disabled={loading || limitReached}
-          className={`px-4 py-2 rounded text-white ${
+         className={`px-4 py-2 rounded text-white font-medium transition ${
             loading || limitReached
               ? "bg-gray-400 cursor-not-allowed"
+              : mode === "dark"
+              ? "bg-yellow-400 text-[#1e1232] hover:bg-yellow-300"
               : "bg-blue-500 hover:bg-blue-600"
           }`}
         >
@@ -109,7 +124,13 @@ const JournalForm = () => {
       </form>
 
       {aiReply && (
-        <div className="mt-4 p-3 bg-green-100 border border-green-300 rounded">
+        <div
+        className={`mt-4 p-3 rounded border transition ${
+            mode === "dark"
+              ? "bg-green-900 text-green-200 border-green-700"
+              : "bg-green-100 text-green-700 border-green-300"
+          }`}
+        >
           <p className="font-semibold text-green-700">AI says:</p>
           <p className="text-gray-800 mt-1 whitespace-pre-line">{aiReply}</p>
         </div>

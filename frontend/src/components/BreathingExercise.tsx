@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useTheme } from "../context/ThemeContext";
 
 const phases = [
   { label: "Breathe In", duration: 4000 },
@@ -10,6 +11,7 @@ const phases = [
 const TOTAL_SESSION_MS = 60000; // 1 minute
 
 const BreathingExercise = () => {
+   const { mode } = useTheme();
   const [phaseIndex, setPhaseIndex] = useState(0);
   const [isActive, setIsActive] = useState(false);
   const [elapsed, setElapsed] = useState(0);
@@ -45,25 +47,37 @@ const BreathingExercise = () => {
   }, [elapsed, isActive]);
 
   return (
-    <div className="bg-white shadow max-w-md mx-auto p-6 rounded text-center mt-6">
+    <div 
+     className={`shadow max-w-md mx-auto p-6 rounded text-center mt-6 ${
+        mode === "dark" ? "bg-gray-900 text-white" : "bg-white"
+      }`}
+    >
       <h2 className="text-2xl font-bold mb-4">Guided Breathing</h2>
 
       <div className="relative w-48 h-48 mx-auto my-6">
         <div
-          className={`rounded-full bg-blue-300 transition-all ease-in-out duration-[4000ms] mx-auto ${
+         className={`rounded-full transition-all ease-in-out duration-[4000ms] mx-auto ${
             currentPhase.label === "Breathe In"
               ? "w-48 h-48"
               : currentPhase.label === "Breathe Out"
               ? "w-28 h-28"
               : "w-36 h-36"
-          }`}
+          } ${mode === "dark" ? "bg-blue-600" : "bg-blue-300"}`}
         ></div>
-        <div className="absolute inset-0 flex items-center justify-center text-lg font-semibold text-blue-800">
+        <div  
+        className={`absolute inset-0 flex items-center justify-center text-lg font-semibold ${
+            mode === "dark" ? "text-blue-200" : "text-blue-800"
+          }`}
+        >
           {currentPhase.label}
         </div>
       </div>
 
-      <p className="text-gray-600 mb-2">
+      <p  
+      className={`mb-2 ${
+          mode === "dark" ? "text-gray-400" : "text-gray-600"
+        }`}
+      >
         Time left: {(TOTAL_SESSION_MS - elapsed) / 1000}s
       </p>
 
@@ -83,7 +97,11 @@ const BreathingExercise = () => {
 
         <button
           onClick={() => setMusicOn((prev) => !prev)}
-          className="bg-gray-200 px-3 py-2 rounded hover:bg-gray-300"
+          className={`px-3 py-2 rounded transition ${
+            mode === "dark"
+              ? "bg-gray-700 text-white hover:bg-gray-600"
+              : "bg-gray-200 hover:bg-gray-300"
+          }`}
         >
           {musicOn ? "Mute Music" : "Play Music"}
         </button>

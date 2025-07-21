@@ -1,4 +1,7 @@
+import { useTheme } from "../context/ThemeContext";
+
 const ResourcesPage = () => {
+  const { mode } = useTheme();
   const quotes = [
     "You don’t have to control your thoughts. You just have to stop letting them control you. – Dan Millman",
     "The greatest weapon against stress is our ability to choose one thought over another. – William James",
@@ -25,12 +28,20 @@ const ResourcesPage = () => {
   ];
 
   return (
-    <div className="max-w-3xl mx-auto px-4 py-8 bg-white shadow rounded mt-6">
+    <div   className={`max-w-3xl mx-auto px-4 py-8 rounded mt-6 shadow transition-colors duration-300 ${
+        mode === "dark"
+          ? "bg-gray-900 text-white"
+          : "bg-white text-[#1e1232]"
+      }`}
+    >
       <h1 className="text-2xl font-bold text-center mb-6">📚 Self-Help Resources</h1>
 
       <section className="mb-6">
         <h2 className="text-xl font-semibold mb-2">🌟 Motivational Quotes</h2>
-        <ul className="list-disc list-inside text-gray-700">
+        <ul  className={`list-disc list-inside ${
+            mode === "dark" ? "text-gray-300" : "text-gray-700"
+          }`}
+        >
           {quotes.map((quote, index) => (
             <li key={index} className="mb-2">“{quote}”</li>
           ))}
@@ -39,7 +50,10 @@ const ResourcesPage = () => {
 
       <section className="mb-6">
         <h2 className="text-xl font-semibold mb-2">💡 Quick Self-Help Tips</h2>
-        <ul className="list-disc list-inside text-gray-700">
+        <ul  className={`list-disc list-inside ${
+            mode === "dark" ? "text-gray-300" : "text-gray-700"
+          }`}
+        >
           {tips.map((tip, index) => (
             <li key={index} className="mb-2">{tip}</li>
           ))}

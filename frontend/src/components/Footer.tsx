@@ -1,9 +1,15 @@
 import { FaFacebookF, FaInstagram, FaXTwitter } from 'react-icons/fa6';
 import logo from './../assets/footer-logo.svg'; // adjust the path if needed
+import { useTheme } from '../context/ThemeContext';
 
 function Footer() {
+  const { mode } = useTheme();
   return (
-    <footer className="bg-[hashtag#1e1232] text-white py-12 px-6">
+    <footer 
+    className={`py-12 px-6 ${
+        mode === 'dark' ? 'bg-gray-900 text-gray-100' : 'bg-[#1e1232] text-white'
+      }`}
+    >
       <div className="max-w-[1240px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-10">
 
         {/* Logo & Email Section */}
@@ -11,17 +17,27 @@ function Footer() {
           <div className="flex items-center space-x-3 mb-4">
             <img src={logo} alt="MentalCare Logo" className="h-12 w-auto" />
           </div>
-          <p className="text-sm text-gray-300 mb-6">
+          <p className={`text-sm mb-6 ${mode === 'dark' ? 'text-gray-300' : 'text-gray-300'}`}>
             Start your path to psychological wellness with our thoroughly selected specialists.
           </p>
-          <form className="flex items-center bg-white rounded-full overflow-hidden w-full max-w-sm">
+          <form   
+          className={`flex items-center rounded-full overflow-hidden w-full max-w-sm ${
+    mode === 'dark' ? 'bg-gray-800' : 'bg-white'
+  }`}
+>
             <input
               type="email"
               placeholder="Email*"
-              className="flex-grow px-4 py-2 text-black focus:outline-none"
-            />
-            <button type="submit" className="bg-[hashtag#c9e3fa] w-10 h-10 flex items-center justify-center rounded-full">
-              <span className="text-[hashtag#1e1232] text-xl mb-1">→</span>
+              className={`flex-grow px-4 py-2 focus:outline-none ${
+      mode === 'dark'
+        ? 'bg-gray-800 text-white placeholder-gray-400'
+        : 'text-black'
+    }`}
+  />
+            <button type="submit" 
+            className="bg-[#c9e3fa] w-10 h-10 flex items-center justify-center rounded-full"
+            >
+              <span className="text-[#1e1232] text-xl mb-1">→</span>
             </button>
 
           </form>
@@ -71,17 +87,21 @@ function Footer() {
 
       {/* Bottom row */}
       <div className="max-w-[1240px] mx-auto mt-10 px-2 flex flex-col md:flex-row items-center justify-between gap-4">
-        <p className="text-sm text-gray-400 text-center md:text-left">
+        <p     
+         className={`text-sm text-center md:text-left ${
+            mode === 'dark' ? 'text-gray-400' : 'text-gray-400'
+          }`}
+        >
           This is a sample website – cmsmasters © 2025 – All Rights Reserved
         </p>
         <div className="flex space-x-3">
-          <a href="#" className="bg-[hashtag#c9e3fa] text-[hashtag#1e1232] p-2 rounded-full hover:scale-105 transition">
+          <a href="#" className="bg-[#c9e3fa] text-[#1e1232] p-2 rounded-full hover:scale-105 transition">
             <FaFacebookF />
           </a>
-          <a href="#" className="bg-[hashtag#c9e3fa] text-[hashtag#1e1232] p-2 rounded-full hover:scale-105 transition">
+          <a href="#" className="bg-[#c9e3fa] text-[#1e1232] p-2 rounded-full hover:scale-105 transition">
             <FaInstagram />
           </a>
-          <a href="#" className="bg-[hashtag#c9e3fa] text-[hashtag#1e1232] p-2 rounded-full hover:scale-105 transition">
+          <a href="#" className="bg-[#c9e3fa] text-[#1e1232] p-2 rounded-full hover:scale-105 transition">
             <FaXTwitter />
           </a>
         </div>
