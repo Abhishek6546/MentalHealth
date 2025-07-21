@@ -9,11 +9,14 @@ import ProfilePage from "./pages/ProfilePage";
 import Exercise from "./pages/Exercise";
 import ResourcesPage from "./pages/ResourcesPage";
 import JournalHistory from "./components/JournalHistory";
+import { ThemeProvider } from './context/ThemeContext';
+
 
 
 function App() {
   return (
    <div>
+    <ThemeProvider>
     <Navbar />
       <Routes>
         <Route path="/" element={<Home/>} />
@@ -26,6 +29,7 @@ function App() {
         <Route path="/journal-history" element={<JournalHistory />} />
       </Routes>
       <Footer/>
+       </ThemeProvider>
    </div>
    
   );

@@ -3,10 +3,12 @@ import { useNavigate } from "react-router-dom";
 import { loginUser } from "../services/api"; 
 import { useAuth } from "../context/useAuth"; 
 import bgImage from "../assets/login-bg.jpg";
+import { useTheme } from "../context/ThemeContext";
 const Login = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [isLoading, setIsLoading] = useState(false);
-  const { setToken } = useAuth(); 
+  const { setToken } = useAuth();
+  const {mode}=useTheme(); 
   const navigate = useNavigate(); 
 
 /*************  ✨ Windsurf Command ⭐  *************/
@@ -45,7 +47,9 @@ const Login = () => {
 
   return (
     <div
-      className="min-h-screen bg-cover bg-top flex items-center justify-center relative"
+       className={`min-h-screen bg-cover bg-top flex items-center justify-center relative ${
+        mode === "dark" ? "bg-black" : ""
+      }`}
       style={{
         backgroundImage:
           `url(${bgImage})`,
@@ -53,9 +57,12 @@ const Login = () => {
     >
       <div className="absolute inset-0 bg-[#0000005d] bg-opacity-50 z-0"></div>
 
-      <div className="relative z-10 bg-white shadow-2xl w-full max-w-[660px] mx-4 p-[30px] md:p-[80px]">
+      <div  className={`relative z-10 w-full max-w-[660px] mx-4 p-[30px] md:p-[80px] shadow-2xl ${
+          mode === "dark" ? "bg-gray-900 text-white" : "bg-white"
+        }`}
+      >
         <div className="text-center mb-6 sm:mb-8">
-          <h1 className="text-[28px] text-start font-bold text-gray-800 mb-4 sm:mb-6">
+          <h1 className="text-[28px] text-start font-bold mb-4 sm:mb-6">
              Log in to continue..
           </h1>
         </div>
@@ -68,7 +75,11 @@ const Login = () => {
             onChange={handleChange}
             placeholder="Email Address"
             required
-            className="w-full p-3 sm:p-4 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 text-gray-700 placeholder-gray-400 text-sm sm:text-base"
+                 className={`w-full p-3 sm:p-4 border rounded-md focus:outline-none focus:ring-1 text-sm sm:text-base ${
+              mode === "dark"
+                ? "bg-gray-800 border-gray-700 text-white placeholder-gray-400 focus:ring-blue-400"
+                : "border-gray-300 text-gray-700 placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500"
+            }`}
           />
           <input
             type="password"
@@ -77,7 +88,11 @@ const Login = () => {
             onChange={handleChange}
             placeholder="Password"
             required
-            className="w-full p-3 sm:p-4 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 text-gray-700 placeholder-gray-400 text-sm sm:text-base"
+             className={`w-full p-3 sm:p-4 border rounded-md focus:outline-none focus:ring-1 text-sm sm:text-base ${
+              mode === "dark"
+                ? "bg-gray-800 border-gray-700 text-white placeholder-gray-400 focus:ring-blue-400"
+                : "border-gray-300 text-gray-700 placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500"
+            }`}
           />
 
           <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 sm:gap-0">
@@ -91,7 +106,9 @@ const Login = () => {
 
             <a
               href="#"
-              className="text-sm text-gray-500 hover:text-gray-700 text-center sm:text-right"
+               className={`text-sm text-center sm:text-right ${
+                mode === "dark" ? "text-gray-400 hover:text-gray-200" : "text-gray-500 hover:text-gray-700"
+              }`}
             >
               Forgot Password
             </a>
@@ -126,7 +143,10 @@ const Login = () => {
               </a>
           </div>
 
-          <div className="text-sm text-gray-500 text-center sm:text-right">
+          <div     className={`text-sm text-center sm:text-right ${
+              mode === "dark" ? "text-gray-400" : "text-gray-500"
+            }`}
+          >
             Don't have an account?{" "}
             <a href="/signup" className="text-blue-500 hover:text-blue-600 font-medium">
               Register
