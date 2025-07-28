@@ -7,14 +7,14 @@ const aiRoutes= require("./routes/ai")
 require("dotenv").config();
 
 const app = express();
-// app.use(cors());
-app.use(cors({
-  origin: [
-    "http://localhost:5173", // Vite default
-    "http://localhost:3000", // CRA default (if needed)
-    process.env.FRONTEND_URL // for production
-  ]
-}));
+app.use(cors());
+// app.use(cors({
+//   origin: [
+//     "http://localhost:5173", // Vite default
+//     "http://localhost:3000", // CRA default (if needed)
+//     process.env.FRONTEND_URL // for production
+//   ]
+// }));
 // app.options("*", cors());
 app.use(express.json());
 
