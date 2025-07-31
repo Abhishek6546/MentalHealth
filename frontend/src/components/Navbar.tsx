@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { HiOutlineMenuAlt3 } from 'react-icons/hi';
 import { FaTimes } from 'react-icons/fa';
-import logo from './../assets/header-logo.svg';
+import logo from './../assets/header-new-logo.svg';
 import { useState } from 'react'
 import { useTheme } from '../context/ThemeContext';
 import { FiSun } from 'react-icons/fi'
@@ -15,7 +15,7 @@ function Navbar() {
 
   return (
     <nav
-      className={`${mode === 'dark'
+      className={`sticky top-0 z-50 backdrop-blur-md bg-opacity-90 ${mode === 'dark'
           ? 'bg-gray-900 text-white'
           : 'bg-gradient-to-r from-[#f4ede4] to-[#e9f4f4] text-[#1e1232]'
         } py-4 shadow-sm transition-colors duration-300`}
