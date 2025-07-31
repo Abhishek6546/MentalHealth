@@ -4,6 +4,10 @@ import { loginUser } from "../services/api";
 import { useAuth } from "../context/useAuth"; 
 import bgImage from "../assets/login-bg.jpg";
 import { useTheme } from "../context/ThemeContext";
+import { loginSchema } from "../services/validationSchemas";
+import { ZodError } from "zod";
+
+
 const Login = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [isLoading, setIsLoading] = useState(false);
@@ -11,39 +15,40 @@ const Login = () => {
   const {mode}=useTheme(); 
   const navigate = useNavigate(); 
 
-/*************  ✨ Windsurf Command ⭐  *************/
-  /**
-   * Handles input change events. Updates the formData state
-   * with the new value of the input element. The state is
-   * updated using the spread operator to preserve the
-   * previous state.
-   * @param {React.ChangeEvent<HTMLInputElement>} e
-   * The input change event.
-   */
-/*******  59355ffa-757e-44ef-8007-79141b11ac29  *******/
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsLoading(true);
-    try {
-      const data = await loginUser(formData.email, formData.password);
-      if (data?.token) {
-        localStorage.setItem("token", data.token);
-        setToken(data.token);
-        navigate("/dashboard");
-      } else {
-        alert("Login failed. Please check credentials.");
-      }
-    } catch (error) {
-      console.log("Something went wrong.",error);
-    } finally { 
-      setIsLoading(false);
+
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  setIsLoading(true);
+
+  try {
+    // ✅ Validate inputs
+    loginSchema.parse(formData);
+
+    const data = await loginUser(formData.email, formData.password);
+    if (data?.token) {
+      localStorage.setItem("token", data.token);
+      setToken(data.token);
+      navigate("/dashboard");
+    } else {
+      alert("Login failed. Please check credentials.");
     }
-  };
+  } catch (error) {
+    if (error instanceof ZodError) {
+      alert(error.issues[0].message);
+    } else {
+      console.error("Login error:", error);
+    }
+  } finally {
+    setIsLoading(false);
+  }
+};
+
 
   return (
     <div

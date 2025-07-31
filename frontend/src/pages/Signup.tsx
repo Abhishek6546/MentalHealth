@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/useAuth";
 import bgImage from "../assets/signup-bg.png";
 import { useTheme } from "../context/ThemeContext";
+import { ZodError } from "zod";
+import { signupSchema } from "../services/validationSchemas";
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -15,52 +17,52 @@ const Signup = () => {
   const { setToken } = useAuth();
   const { mode } = useTheme();
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(false); // ✅ now used
+  const [isLoading, setIsLoading] = useState(false); 
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
+ 
 
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true); // ✅ use loading state
-
-    const { name, email, password, confirmPassword } = formData;
-
-    if (password !== confirmPassword) {
-      alert("Passwords do not match!");
-      setIsLoading(false);
-      return;
-    }
+    setIsLoading(true);
 
     try {
+      // ✅ Zod validation
+      signupSchema.parse(formData);
+
+      const { name, email, password } = formData;
       const data = await signupUser(name, email, password);
       if (data.token) {
         localStorage.setItem("token", data.token);
         setToken(data.token);
         navigate("/dashboard");
       } else {
-        alert("Signup failed");
+        alert(data.message);
       }
     } catch (err) {
-      console.log("Error during signup",err);
+      if (err instanceof ZodError) {
+        alert(err.issues[0].message);
+      } else {
+        console.error("Signup error:", err);
+      }
     } finally {
       setIsLoading(false);
     }
   };
 
+
   return (
     <div
-        className={`min-h-screen bg-cover bg-top flex items-center justify-center relative ${
-        mode === "dark" ? "bg-black" : ""
-      }`}
+      className={`min-h-screen bg-cover bg-top flex items-center justify-center relative ${mode === "dark" ? "bg-black" : ""
+        }`}
       style={{ backgroundImage: `url(${bgImage})` }}
     >
       <div className="absolute inset-0 bg-[#0000005d] bg-opacity-50 z-0"></div>
 
-      <div className={`relative z-10 shadow-2xl w-full max-w-[660px] mx-4 p-[30px] md:p-[80px] ${
-          mode === "dark" ? "bg-gray-900 text-white" : "bg-white"
+      <div className={`relative z-10 shadow-2xl w-full max-w-[660px] mx-4 p-[30px] md:p-[80px] ${mode === "dark" ? "bg-gray-900 text-white" : "bg-white"
         }`}
       >
         <div className="text-center mb-6 sm:mb-8">
@@ -77,11 +79,10 @@ const Signup = () => {
             onChange={handleChange}
             placeholder="Full Name"
             required
-            className={`w-full p-3 sm:p-4 border rounded-md text-sm sm:text-base ${
-              mode === "dark"
+            className={`w-full p-3 sm:p-4 border rounded-md text-sm sm:text-base ${mode === "dark"
                 ? "bg-gray-800 border-gray-700 text-white placeholder-gray-400 focus:ring-blue-400 focus:outline-none focus:ring-1"
                 : "border-gray-300 text-gray-700 placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500 focus:outline-none focus:ring-1"
-            }`}
+              }`}
           />
           <input
             type="email"
@@ -90,11 +91,10 @@ const Signup = () => {
             onChange={handleChange}
             placeholder="Email Address"
             required
-             className={`w-full p-3 sm:p-4 border rounded-md text-sm sm:text-base ${
-              mode === "dark"
+            className={`w-full p-3 sm:p-4 border rounded-md text-sm sm:text-base ${mode === "dark"
                 ? "bg-gray-800 border-gray-700 text-white placeholder-gray-400 focus:ring-blue-400 focus:outline-none focus:ring-1"
                 : "border-gray-300 text-gray-700 placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500 focus:outline-none focus:ring-1"
-            }`}
+              }`}
           />
           <input
             type="password"
@@ -103,11 +103,10 @@ const Signup = () => {
             onChange={handleChange}
             placeholder="Password"
             required
-             className={`w-full p-3 sm:p-4 border rounded-md text-sm sm:text-base ${
-              mode === "dark"
+            className={`w-full p-3 sm:p-4 border rounded-md text-sm sm:text-base ${mode === "dark"
                 ? "bg-gray-800 border-gray-700 text-white placeholder-gray-400 focus:ring-blue-400 focus:outline-none focus:ring-1"
                 : "border-gray-300 text-gray-700 placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500 focus:outline-none focus:ring-1"
-            }`}
+              }`}
           />
           <input
             type="password"
@@ -116,11 +115,10 @@ const Signup = () => {
             onChange={handleChange}
             placeholder="Confirm Password"
             required
-            className={`w-full p-3 sm:p-4 border rounded-md text-sm sm:text-base ${
-              mode === "dark"
+            className={`w-full p-3 sm:p-4 border rounded-md text-sm sm:text-base ${mode === "dark"
                 ? "bg-gray-800 border-gray-700 text-white placeholder-gray-400 focus:ring-blue-400 focus:outline-none focus:ring-1"
                 : "border-gray-300 text-gray-700 placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500 focus:outline-none focus:ring-1"
-            }`}
+              }`}
           />
           <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 sm:gap-0">
             <button
@@ -133,11 +131,10 @@ const Signup = () => {
 
             <a
               href="#"
-             className={`text-sm text-center sm:text-right ${
-                mode === "dark"
+              className={`text-sm text-center sm:text-right ${mode === "dark"
                   ? "text-gray-400 hover:text-gray-200"
                   : "text-gray-500 hover:text-gray-700"
-              }`}
+                }`}
             >
               Forgot Password
             </a>
@@ -149,10 +146,9 @@ const Signup = () => {
             {/* Social icons here if needed */}
           </div>
 
-          <div 
-             className={`text-sm text-center sm:text-right ${
-              mode === "dark" ? "text-gray-400" : "text-gray-500"
-            }`}
+          <div
+            className={`text-sm text-center sm:text-right ${mode === "dark" ? "text-gray-400" : "text-gray-500"
+              }`}
           >
             Already have an account?{" "}
             <a href="/login" className="text-blue-500 hover:text-blue-600 font-medium">
