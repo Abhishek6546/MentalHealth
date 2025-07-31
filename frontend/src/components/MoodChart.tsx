@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
 import {
-  LineChart,
-  Line,
   XAxis,
   YAxis,
   Tooltip,
@@ -66,7 +64,7 @@ const MoodChart = ({ userId }: { userId: string }) => {
         setData(processed);
         
         // Calculate average mood
-        const avg = processed.reduce((sum, entry) => sum + entry.moodScore, 0) / processed.length;
+        const avg = processed.reduce((sum: number, entry: any) => sum + entry.moodScore, 0) / processed.length;
         setAverageMood(avg);
       } catch (error) {
         console.error("Failed to fetch mood data:", error);

@@ -63,7 +63,7 @@ const ContactSection = () => {
 
             <textarea
               placeholder="Your Message"
-              rows="5"
+              rows={5}
               className={`w-full px-5 py-3 rounded-3xl border focus:outline-none focus:ring-2 focus:ring-[#f9d477] transition ${
                 mode === 'dark'
                   ? 'bg-gray-900 border-gray-600 text-white placeholder-gray-400'

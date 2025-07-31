@@ -64,14 +64,7 @@ const JournalForm = () => {
   const entriesLeft = MAX_ENTRIES - entryCount;
   const limitReached = entryCount >= MAX_ENTRIES;
 
-  // Mood emoji mapping
-  const moodEmojis = {
-    Happy: "😊",
-    Sad: "😢", 
-    Anxious: "😰",
-    Angry: "😠",
-    Neutral: "😐"
-  };
+  // Mood emoji mapping - removed unused variable
 
   return (
     <div className={`p-8 rounded-3xl backdrop-blur-md border transition-all duration-500 h-full ${

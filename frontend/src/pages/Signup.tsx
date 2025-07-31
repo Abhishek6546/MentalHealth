@@ -46,7 +46,7 @@ const Signup = () => {
       if (err instanceof ZodError) {
         alert(err.issues[0].message);
       } else {
-        console.error("Signup error:", err);
+        console.error("Signup error occur:", err);
       }
     } finally {
       setIsLoading(false);

@@ -32,13 +32,13 @@ const tracks = [
 
 const MeditationAudio = () => {
   const { mode } = useTheme(); // light or dark
-  const [current, setCurrent] = useState(null);
+  const [current, setCurrent] = useState<string | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
-  const audioRef = useRef(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  const handlePlay = (trackSrc) => {
+  const handlePlay = (trackSrc: string) => {
     if (current === trackSrc && isPlaying) {
       audioRef.current?.pause();
       setIsPlaying(false);
@@ -51,7 +51,7 @@ const MeditationAudio = () => {
     }
   };
 
-  const formatTime = (time) => {
+  const formatTime = (time: number) => {
     const minutes = Math.floor(time / 60);
     const seconds = Math.floor(time % 60);
     return `${minutes}:${seconds.toString().padStart(2, '0')}`;
@@ -144,8 +144,8 @@ const MeditationAudio = () => {
           src={current}
           autoPlay
           className="hidden"
-          onTimeUpdate={(e) => setCurrentTime(e.target.currentTime)}
-          onLoadedMetadata={(e) => setDuration(e.target.duration)}
+          onTimeUpdate={(e) => setCurrentTime((e.target as HTMLAudioElement).currentTime)}
+          onLoadedMetadata={(e) => setDuration((e.target as HTMLAudioElement).duration)}
           onEnded={() => {
             setIsPlaying(false);
             setCurrent(null);
