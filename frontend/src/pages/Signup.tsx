@@ -30,9 +30,7 @@ const Signup = () => {
     setIsLoading(true);
 
     try {
-      // ✅ Zod validation
       signupSchema.parse(formData);
-
       const { name, email, password } = formData;
       const data = await signupUser(name, email, password);
       if (data.token) {

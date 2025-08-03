@@ -112,10 +112,9 @@ AI Feedback: ${entry.aiReply || "N/A"}
   };
 
   return (
-    <div className={`max-w-lg mx-auto mt-8 p-8 rounded-3xl shadow-2xl backdrop-blur-sm border transition-all duration-300 ${
-        mode === "dark"
-          ? "bg-gray-800/90 border-gray-700/50"
-          : "bg-white/95 border-gray-200/50"
+    <div className={`max-w-lg mx-auto mt-8 p-8 rounded-3xl shadow-2xl backdrop-blur-sm border transition-all duration-300 ${mode === "dark"
+        ? "bg-gray-800/90 border-gray-700/50"
+        : "bg-white/95 border-gray-200/50"
       }`}
     >
       {/* Header Section */}
@@ -132,11 +131,10 @@ AI Feedback: ${entry.aiReply || "N/A"}
       </div>
 
       {/* Stats Preview */}
-      <div className={`p-4 rounded-xl mb-6 border ${
-        mode === "dark"
+      <div className={`p-4 rounded-xl mb-6 border ${mode === "dark"
           ? "bg-gradient-to-br from-indigo-900/20 to-purple-900/20 border-indigo-800/30"
           : "bg-gradient-to-br from-indigo-50 to-purple-50 border-indigo-200/50"
-      }`}>
+        }`}>
         <div className="flex items-center justify-between">
           <div className="flex items-center">
             <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center mr-3">
@@ -151,11 +149,10 @@ AI Feedback: ${entry.aiReply || "N/A"}
               </p>
             </div>
           </div>
-          <div className={`px-3 py-1 rounded-full text-xs font-semibold ${
-            entries.length > 0
+          <div className={`px-3 py-1 rounded-full text-xs font-semibold ${entries.length > 0
               ? "bg-green-100 text-green-800"
               : "bg-gray-100 text-gray-600"
-          }`}>
+            }`}>
             {entries.length > 0 ? `${entries.length} entries` : "No entries"}
           </div>
         </div>
@@ -167,13 +164,12 @@ AI Feedback: ${entry.aiReply || "N/A"}
         <button
           onClick={downloadPDF}
           disabled={isLoading || entries.length === 0}
-          className={`w-full p-4 rounded-xl font-semibold text-lg transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] shadow-lg ${
-            isLoading || entries.length === 0
+          className={`w-full p-4 rounded-xl font-semibold text-lg transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] shadow-lg ${isLoading || entries.length === 0
               ? "bg-gray-400 cursor-not-allowed text-white"
               : mode === "dark"
-              ? "bg-gradient-to-r from-red-500 to-pink-600 text-white hover:from-red-400 hover:to-pink-500 hover:shadow-red-500/25"
-              : "bg-gradient-to-r from-red-500 to-pink-600 text-white hover:from-red-600 hover:to-pink-700 hover:shadow-red-500/25"
-          }`}
+                ? "bg-gradient-to-r from-red-500 to-pink-600 text-white hover:from-red-400 hover:to-pink-500 hover:shadow-red-500/25"
+                : "bg-gradient-to-r from-red-500 to-pink-600 text-white hover:from-red-600 hover:to-pink-700 hover:shadow-red-500/25"
+            }`}
         >
           <div className="flex items-center justify-center">
             {isLoading ? (
@@ -198,13 +194,12 @@ AI Feedback: ${entry.aiReply || "N/A"}
         <button
           onClick={downloadText}
           disabled={isLoading || entries.length === 0}
-          className={`w-full p-4 rounded-xl font-semibold text-lg transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] shadow-lg ${
-            isLoading || entries.length === 0
+          className={`w-full p-4 rounded-xl font-semibold text-lg transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] shadow-lg ${isLoading || entries.length === 0
               ? "bg-gray-400 cursor-not-allowed text-white"
               : mode === "dark"
-              ? "bg-gradient-to-r from-green-500 to-emerald-600 text-white hover:from-green-400 hover:to-emerald-500 hover:shadow-green-500/25"
-              : "bg-gradient-to-r from-green-500 to-emerald-600 text-white hover:from-green-600 hover:to-emerald-700 hover:shadow-green-500/25"
-          }`}
+                ? "bg-gradient-to-r from-green-500 to-emerald-600 text-white hover:from-green-400 hover:to-emerald-500 hover:shadow-green-500/25"
+                : "bg-gradient-to-r from-green-500 to-emerald-600 text-white hover:from-green-600 hover:to-emerald-700 hover:shadow-green-500/25"
+            }`}
         >
           <div className="flex items-center justify-center">
             {isLoading ? (
@@ -228,11 +223,10 @@ AI Feedback: ${entry.aiReply || "N/A"}
 
       {/* Info Section */}
       {entries.length === 0 ? (
-        <div className={`mt-6 p-4 rounded-xl text-center border-2 border-dashed ${
-          mode === "dark"
+        <div className={`mt-6 p-4 rounded-xl text-center border-2 border-dashed ${mode === "dark"
             ? "border-gray-600/50 bg-gray-700/20"
             : "border-gray-300/50 bg-gray-50/50"
-        }`}>
+          }`}>
           <div className="text-4xl mb-2">📝</div>
           <p className={`text-sm font-medium ${mode === "dark" ? "text-gray-400" : "text-gray-600"}`}>
             No journal entries to export yet
@@ -242,11 +236,10 @@ AI Feedback: ${entry.aiReply || "N/A"}
           </p>
         </div>
       ) : (
-        <div className={`mt-6 p-4 rounded-xl text-center ${
-          mode === "dark"
+        <div className={`mt-6 p-4 rounded-xl text-center ${mode === "dark"
             ? "bg-blue-900/20 border border-blue-800/30"
             : "bg-blue-50 border border-blue-200/50"
-        }`}>
+          }`}>
           <div className="flex items-center justify-center mb-2">
             <span className="text-blue-500 mr-2">💡</span>
             <p className={`text-sm font-medium ${mode === "dark" ? "text-blue-300" : "text-blue-700"}`}>

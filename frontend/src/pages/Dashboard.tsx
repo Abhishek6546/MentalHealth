@@ -177,22 +177,7 @@ function Dashboard() {
                     {/* Action Buttons - Horizontal Layout */}
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                       
-                      {/* View History Button */}
-                      <button
-                        onClick={() => navigate("/journal-history")}
-                        className={`p-4 rounded-2xl font-semibold transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 shadow-lg ${
-                          mode === "dark"
-                            ? "bg-gradient-to-r from-yellow-400 to-orange-500 text-gray-900 hover:shadow-yellow-400/25"
-                            : "bg-gradient-to-r from-blue-500 to-purple-600 text-white hover:shadow-blue-500/25"
-                        }`}
-                      >
-                        <div className="flex flex-col items-center text-center">
-                          <span className="text-2xl mb-2">📖</span>
-                          <div className="font-bold">View History</div>
-                          <div className="text-sm opacity-80">Browse past entries</div>
-                        </div>
-                      </button>
-
+                    
                       {/* Wellness Tips */}
                       <div className={`p-4 rounded-2xl border-2 border-dashed transition-all duration-300 hover:border-solid ${
                         mode === "dark"
@@ -213,6 +198,21 @@ function Dashboard() {
                           </div>
                         </div>
                       </div>
+                       {/* View History Button */}
+                       <button
+                        onClick={() => navigate("/journal-history")}
+                        className={`p-4 rounded-2xl font-semibold transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 shadow-lg ${
+                          mode === "dark"
+                            ? "bg-gradient-to-r from-yellow-400 to-orange-500 text-gray-900 hover:shadow-yellow-400/25"
+                            : "bg-gradient-to-r from-blue-500 to-purple-600 text-white hover:shadow-blue-500/25"
+                        }`}
+                      >
+                        <div className="flex flex-col items-center text-center">
+                          <span className="text-2xl mb-2">📖</span>
+                          <div className="font-bold">View History</div>
+                          <div className="text-sm opacity-80">Browse past entries</div>
+                        </div>
+                      </button>
 
                       {/* Progress Indicator */}
                       <div className={`p-4 rounded-2xl ${

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../context/useAuth";
 import { useTheme } from "../context/ThemeContext";
 
+
 const JournalForm = () => {
   const [thought, setThought] = useState("");
   const [mood, setMood] = useState("Neutral");
@@ -58,6 +59,7 @@ const JournalForm = () => {
       console.log("Something went wrong.",err);
     } finally {
       setLoading(false);
+    
     }
   };
 
@@ -250,8 +252,8 @@ const JournalForm = () => {
       {aiReply && (
         <div className={`mt-8 p-6 rounded-2xl border-l-4 transition-all duration-700 transform hover:scale-[1.02] ${
             mode === "dark"
-              ? "bg-gradient-to-br from-green-900/30 to-emerald-900/30 text-green-100 border-green-400 border border-green-800/50 shadow-lg shadow-green-900/20"
-              : "bg-gradient-to-br from-green-50 to-emerald-50 text-green-900 border-green-500 border border-green-200/50 shadow-lg shadow-green-500/10"
+              ? "bg-gradient-to-br from-green-900/30 to-emerald-900/30 text-green-100  border border-green-800/50 shadow-lg shadow-green-900/20"
+              : "bg-gradient-to-br from-green-50 to-emerald-50 text-green-900  border border-green-200/50 shadow-lg shadow-green-500/10"
           }`}
         >
           <div className="flex items-start space-x-4">

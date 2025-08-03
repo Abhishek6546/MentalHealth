@@ -6,18 +6,20 @@ import { useState } from 'react'
 import { useTheme } from '../context/ThemeContext';
 import { FiSun } from 'react-icons/fi'
 import { BsFillCloudSunFill } from 'react-icons/bs'
+import { useAuth } from '../context/useAuth.ts';
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const toggleMenu = () => setMenuOpen(!menuOpen);
   const closeMenu = () => setMenuOpen(false);
   const { mode, toggleMode } = useTheme();
+  const { user} = useAuth();
 
   return (
     <nav
       className={`sticky top-0 z-50 backdrop-blur-md bg-opacity-90 ${mode === 'dark'
-          ? 'bg-gray-900 text-white'
-          : 'bg-gradient-to-r from-[#f4ede4] to-[#e9f4f4] text-[#1e1232]'
+        ? 'bg-gray-900 text-white'
+        : 'bg-gradient-to-r from-[#f4ede4] to-[#e9f4f4] text-[#1e1232]'
         } py-4 shadow-sm transition-colors duration-300`}
     >
       <div className="max-w-[1240px] mx-auto px-6 flex justify-between items-center">
@@ -33,9 +35,10 @@ function Navbar() {
           <li><Link to="/dashboard" className={mode === 'dark' ? 'text-white hover:text-gray-300' : 'text-[#1e1232] hover:text-gray-600'}>Dashboard</Link></li>
           <li><Link to="/Exercise" className={mode === 'dark' ? 'text-white hover:text-gray-300' : 'text-[#1e1232] hover:text-gray-600'}>Exercise</Link></li>
           <li><Link to="/resources" className={mode === 'dark' ? 'text-white hover:text-gray-300' : 'text-[#1e1232] hover:text-gray-600'}>Resources</Link></li>
-          <li><Link to="/profile" className={mode === 'dark' ? 'text-white hover:text-gray-300' : 'text-[#1e1232] hover:text-gray-600'}>Profile</Link></li>
-
-          <li><Link to="/login" className={mode === 'dark' ? 'text-white hover:text-gray-300' : 'text-[#1e1232] hover:text-gray-600'}>Login</Link></li>
+          {user ? <li><Link to="/profile" className={mode === 'dark' ? 'text-white hover:text-gray-300' : 'text-[#1e1232] hover:text-gray-600'}>Profile</Link></li>
+            :
+            <li><Link to="/login" className={mode === 'dark' ? 'text-white hover:text-gray-300' : 'text-[#1e1232] hover:text-gray-600'}>Login</Link></li>
+          }
 
           <li>
             {/* Theme Switcher */}
@@ -78,8 +81,8 @@ function Navbar() {
       {menuOpen && (
         <div
           className={`lg:hidden px-6 pt-4 pb-6 font-medium space-y-4 ${mode === 'dark'
-              ? 'bg-gray-900 text-white'
-              : 'bg-white text-[#1e1232]'
+            ? 'bg-gray-900 text-white'
+            : 'bg-white text-[#1e1232]'
             }`}
         >
           <Link to="/" onClick={closeMenu} className="block">Home</Link>

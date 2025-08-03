@@ -84,7 +84,7 @@ const HabitTracker = () => {
   const milestone = getNextMilestone(data.streak);
 
   return (
-    <div className={`max-w-lg mx-auto mt-8 rounded-3xl shadow-2xl backdrop-blur-sm border transition-all duration-300 hover:shadow-3xl ${
+    <div className={`max-w-lg mx-auto max-md:mt-8 rounded-3xl shadow-2xl backdrop-blur-sm border transition-all duration-300 hover:shadow-3xl ${
         mode === "dark"
           ? "bg-gray-800/90 border-gray-700/50"
           : "bg-white/95 border-gray-200/50"
