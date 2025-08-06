@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { Heart, Sparkles } from 'lucide-react';
 
 // Mock useTheme hook since ThemeContext is not available
@@ -75,7 +75,7 @@ function Footer() {
         <div className={`border-t mt-8 pt-8 text-center ${
           isDarkMode ? 'border-gray-600 text-gray-400' : 'border-gray-700 text-gray-400'
         }`}>
-          <p>&copy; 2024 MindFree. All rights reserved. Made with ❤️ for mental wellness.</p>
+          <p>&copy; 2025 MindFree. All rights reserved. Made with ❤️ for mental wellness.</p>
         </div>
       </div>
     </footer>

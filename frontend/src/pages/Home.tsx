@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import {
   Wind,
@@ -11,15 +11,8 @@ import {
   Meh,
   AlertTriangle,
   ChevronRight,
-  Heart,
-  Phone,
-  Mail,
-  HelpCircle,
   ChevronDown,
   ChevronUp,
-  Send,
-  User,
-  Sparkles,
   Star,
   Zap,
 } from "lucide-react";
@@ -27,14 +20,15 @@ import { useTheme } from "../context/ThemeContext";
 
 function Home() {
   const { mode } = useTheme();
-  const [selectedMood, setSelectedMood] = useState(null);
-  const [openFaq, setOpenFaq] = useState(null);
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
-  });
+  const [selectedMood, setSelectedMood] = useState<string | null>(null);
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
+  // const [formData, setFormData] = useState({
+  //   name: "",
+  //   email: "",
+  //   subject: "",
+  //   message: "",
+  // });
+
 
   const isDarkMode = mode === "dark";
 
@@ -150,26 +144,26 @@ function Home() {
     },
   ];
 
-  const handleInputChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
+  // const handleInputChange = (e:any) => {
+  //   setFormData({
+  //     ...formData,
+  //     [e.target.name]: e.target.value,
+  //   });
+  // };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Form submitted:", formData);
-    setFormData({ name: "", email: "", subject: "", message: "" });
-    alert("Thank you for your message! We'll get back to you soon.");
-  };
+  // const handleSubmit = (e:any) => {
+  //   e.preventDefault();
+  //   console.log("Form submitted:", formData);
+  //   setFormData({ name: "", email: "", subject: "", message: "" });
+  //   alert("Thank you for your message! We'll get back to you soon.");
+  // };
 
   return (
     <div
       className={`min-h-screen ${isDarkMode
-          ? "bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900"
-          : "bg-gradient-to-br from-blue-50 via-white to-green-50"
-        } relative overflow-hidden`}
+        ? "bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900"
+        : "bg-gradient-to-br from-blue-50 via-white to-green-50"
+        } relative overflow-hidden mt-[-80px]`}
     >
       {/* Animated Background Elements */}
       <div className="fixed inset-0 pointer-events-none">
@@ -198,8 +192,8 @@ function Home() {
             <div className="mb-6">
               <div
                 className={`inline-flex items-center px-4 py-2 ${isDarkMode
-                    ? "bg-blue-900 text-blue-300"
-                    : "bg-blue-100 text-blue-800"
+                  ? "bg-blue-900 text-blue-300"
+                  : "bg-blue-100 text-blue-800"
                   } rounded-full text-sm font-medium mb-6`}
               >
                 <Star className="h-4 w-4 mr-2" />
@@ -238,8 +232,8 @@ function Home() {
               <Link
                 to="/resources"
                 className={`px-10 py-5 border-2 ${isDarkMode
-                    ? "border-gray-600 text-gray-300 hover:border-blue-500 hover:text-blue-400"
-                    : "border-gray-300 text-gray-700 hover:border-blue-500 hover:text-blue-600"
+                  ? "border-gray-600 text-gray-300 hover:border-blue-500 hover:text-blue-400"
+                  : "border-gray-300 text-gray-700 hover:border-blue-500 hover:text-blue-600"
                   } rounded-full text-lg font-semibold transition-all duration-300`}
               >
                 Learn More
@@ -299,8 +293,8 @@ function Home() {
                 <Link
                   to={feature.route}
                   className={`block w-full text-center ${isDarkMode
-                      ? "bg-gray-700/80 text-white hover:bg-gray-600"
-                      : "bg-white/80 text-gray-800 hover:bg-white"
+                    ? "bg-gray-700/80 text-white hover:bg-gray-600"
+                    : "bg-white/80 text-gray-800 hover:bg-white"
                     } backdrop-blur-sm py-3 px-6 rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl group-hover:transform group-hover:scale-105`}
                 >
                   {feature.buttonText}
@@ -314,14 +308,14 @@ function Home() {
       {/* Mood Check Section */}
       <section
         className={`py-24 px-4 sm:px-6 lg:px-8 ${isDarkMode
-            ? "bg-gradient-to-r from-gray-800 via-gray-900 to-gray-800"
-            : "bg-gradient-to-r from-blue-50 via-white to-green-50"
+          ? "bg-gradient-to-r from-gray-800 via-gray-900 to-gray-800"
+          : "bg-gradient-to-r from-blue-50 via-white to-green-50"
           } relative`}
       >
         <div
           className={`absolute inset-0 ${isDarkMode
-              ? "bg-gradient-to-r from-blue-900/10 to-green-900/10"
-              : "bg-gradient-to-r from-blue-100/20 to-green-100/20"
+            ? "bg-gradient-to-r from-blue-900/10 to-green-900/10"
+            : "bg-gradient-to-r from-blue-100/20 to-green-100/20"
             }`}
         ></div>
         <div className="max-w-5xl mx-auto text-center relative z-10">
@@ -361,8 +355,8 @@ function Home() {
           <Link
             to="/dashboard"
             className={`bg-gradient-to-r from-blue-600 to-green-600 text-white px-10 py-4 rounded-full font-semibold hover:from-blue-700 hover:to-green-700 transition-all duration-300 shadow-xl transform hover:scale-105 ${!selectedMood
-                ? "opacity-50 cursor-not-allowed pointer-events-none"
-                : "hover:shadow-blue-500/25"
+              ? "opacity-50 cursor-not-allowed pointer-events-none"
+              : "hover:shadow-blue-500/25"
               }`}
           >
             Get Personalized Support
@@ -398,8 +392,8 @@ function Home() {
               <div
                 key={index}
                 className={`${isDarkMode
-                    ? "bg-gray-800 border-gray-700"
-                    : "bg-white border-gray-100"
+                  ? "bg-gray-800 border-gray-700"
+                  : "bg-white border-gray-100"
                   } rounded-2xl shadow-lg border overflow-hidden`}
               >
                 <button
@@ -441,15 +435,15 @@ function Home() {
       {/* Contact Form Section */}
       <section
         className={`py-24 px-4 sm:px-6 lg:px-8 ${isDarkMode
-            ? "bg-gradient-to-br from-gray-800 to-gray-900"
-            : "bg-gradient-to-br from-blue-50 to-green-50"
+          ? "bg-gradient-to-br from-gray-800 to-gray-900"
+          : "bg-gradient-to-br from-blue-50 to-green-50"
           }`}
       >
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-16">
             <h2
-              className={`text-4xl md:text-5xl font-bold ${isDarkMode ? "text-white" : "text-gray-800"
-                } mb-6`}
+              className={`text-4xl md:text-5xl font-bold mb-6 ${isDarkMode ? "text-white" : "text-gray-800"
+                }`}
             >
               Get in
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-green-600">
@@ -458,7 +452,7 @@ function Home() {
               </span>
             </h2>
             <p
-              className={`text-xl ${isDarkMode ? "text-gray-300" : "text-gray-600"
+              className={`text-xl ${isDarkMode ? "text-white" : "text-gray-600"
                 }`}
             >
               Have questions or need support? We're here to help you on your
@@ -467,10 +461,10 @@ function Home() {
           </div>
 
           <div
-            className={`${isDarkMode
-                ? "bg-gray-800 border-gray-700"
-                : "bg-white border-gray-100"
-              } rounded-3xl shadow-2xl p-8 md:p-12 border`}
+            className={`rounded-3xl shadow-2xl p-8 md:p-12 border ${isDarkMode
+              ? "bg-gray-800 border-gray-700"
+              : "bg-white border-gray-100"
+              }`}
           >
             <form
               action="https://formsubmit.co/abhishekk11603@gmail.com"
@@ -481,14 +475,15 @@ function Home() {
               <input
                 type="hidden"
                 name="_next"
-                value="https://yourwebsite.com/thank-you"
+                value="https://mental-health-app-wine.vercel.app/"
               />
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div>
                   <label
                     htmlFor="name"
-                    className="block text-sm font-semibold text-gray-700 mb-3"
+                    className={`block text-sm font-semibold mb-3 ${isDarkMode ? "text-white" : "text-gray-600"
+                      }`}
                   >
                     Full Name
                   </label>
@@ -498,23 +493,27 @@ function Home() {
                     name="name"
                     placeholder="Enter your full name"
                     required
-                    className="w-full px-4 py-4 border border-gray-300 rounded-xl"
+                    className={`w-full px-4 py-4 border border-gray-300 rounded-xl ${isDarkMode ? "bg-gray-900 text-white placeholder-gray-400" : "bg-white text-black placeholder-gray-500"
+                      }`}
                   />
                 </div>
                 <div>
                   <label
                     htmlFor="email"
-                    className="block text-sm font-semibold text-gray-700 mb-3"
+                    className={`block text-sm font-semibold mb-3 ${isDarkMode ? "text-white" : "text-gray-600"
+                      }`}
                   >
                     Email Address
                   </label>
+
                   <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    placeholder="Enter your email"
+                    type="text"
+                    id="subject"
+                    name="subject"
+                    placeholder="What's this about?"
                     required
-                    className="w-full px-4 py-4 border border-gray-300 rounded-xl"
+                    className={`w-full px-4 py-4 border border-gray-300 rounded-xl ${isDarkMode ? "bg-gray-900 text-white placeholder-gray-400" : "bg-white text-black placeholder-gray-500"
+                      }`}
                   />
                 </div>
               </div>
@@ -522,40 +521,26 @@ function Home() {
               <div>
                 <label
                   htmlFor="subject"
-                  className="block text-sm font-semibold text-gray-700 mb-3"
+                  className={`block text-sm font-semibold mb-3 ${isDarkMode ? "text-white" : "text-gray-600"
+                    }`}
                 >
                   Subject
-                </label>
-                <input
-                  type="text"
-                  id="subject"
-                  name="subject"
-                  placeholder="What's this about?"
-                  required
-                  className="w-full px-4 py-4 border border-gray-300 rounded-xl"
-                />
-              </div>
-
-              <div>
-                <label
-                  htmlFor="message"
-                  className="block text-sm font-semibold text-gray-700 mb-3"
-                >
-                  Message
                 </label>
                 <textarea
                   id="message"
                   name="message"
-                  rows="6"
+                  rows={6}
                   placeholder="Tell us how we can help you..."
-                  className="w-full px-4 py-4 border border-gray-300 rounded-xl resize-none"
-                ></textarea>
+                  className={`w-full px-4 py-4 border border-gray-300 rounded-xl resize-none ${isDarkMode ? "bg-gray-900 text-white placeholder-gray-400" : "bg-white text-black placeholder-gray-500"
+                    }`}
+                />
               </div>
 
+
               <div className="text-center">
-                <button
+                <button 
                   type="submit"
-                  className="bg-gradient-to-r from-blue-600 to-green-600 text-white px-10 py-4 rounded-full font-semibold cursor-pointer "
+                  className="bg-gradient-to-r from-blue-600 to-green-600 text-white px-10 py-4 rounded-full font-semibold cursor-pointer"
                 >
                   Send Message
                 </button>
@@ -564,6 +549,7 @@ function Home() {
           </div>
         </div>
       </section>
+
 
       {/* Emergency Support Section */}
       {/* <section
