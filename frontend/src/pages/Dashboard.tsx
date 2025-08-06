@@ -106,9 +106,9 @@ function Dashboard() {
               <div className="xl:col-span-1">
                 <div className="group relative h-full">
                   {/* Glow effect */}
-                  <div className={`absolute inset-0 rounded-3xl blur opacity-20 group-hover:opacity-40 transition duration-1000 ${
+                  {/* <div className={`absolute inset-0 rounded-3xl blur opacity-20 group-hover:opacity-40 transition duration-1000 ${
                     mode === "dark" ? "bg-green-600 opacity-30" : "bg-green-300 opacity-10"
-                  }`}></div>
+                  }`}></div> */}
                   <div className="relative h-full">
                     <HabitTracker />
                   </div>
@@ -124,9 +124,9 @@ function Dashboard() {
               <div className="xl:col-span-1">
                 <div className="group relative h-full">
                   {/* Glow effect */}
-                  <div className={`absolute inset-0 rounded-3xl blur opacity-20 group-hover:opacity-40 transition duration-1000 ${
+                  {/* <div className={`absolute inset-0 rounded-3xl blur opacity-20 group-hover:opacity-40 transition duration-1000 ${
                     mode === "dark" ? "bg-purple-600 opacity-30" : "bg-purple-300 opacity-10"
-                  }`}></div>
+                  }`}></div> */}
                   <div className="relative h-full">
                     <JournalExport userId={userId} />
                   </div>
@@ -137,9 +137,9 @@ function Dashboard() {
               <div className="xl:col-span-2">
                 <div className="group relative h-full">
                   {/* Glow effect */}
-                  <div className={`absolute inset-0 rounded-3xl blur opacity-20 group-hover:opacity-40 transition duration-1000 ${
+                  {/* <div className={`absolute inset-0 rounded-3xl blur opacity-20 group-hover:opacity-40 transition duration-1000 ${
                     mode === "dark" ? "bg-pink-600 opacity-30" : "bg-pink-300 opacity-10"
-                  }`}></div>
+                  }`}></div> */}
                   <div className="relative h-full">
                     {userId && <MoodChart userId={userId} />}
                   </div>
@@ -151,9 +151,9 @@ function Dashboard() {
             <div className="min-h-[300px]">
               <div className="group relative h-full">
                 {/* Glow effect */}
-                <div className={`absolute inset-0 rounded-3xl blur opacity-20 group-hover:opacity-40 transition duration-1000 ${
+                {/* <div className={`absolute inset-0 rounded-3xl blur opacity-20 group-hover:opacity-40 transition duration-1000 ${
                   mode === "dark" ? "bg-yellow-600 opacity-30" : "bg-yellow-300 opacity-10"
-                }`}></div>
+                }`}></div> */}
                 <div className="relative h-full">
                   <div className={`h-full p-8 rounded-3xl backdrop-blur-sm border transition-all duration-300 ${
                     mode === "dark" 
@@ -232,7 +232,7 @@ function Dashboard() {
                           mode === "dark" ? "bg-gray-700" : "bg-gray-200"
                         }`}>
                           <div className="bg-gradient-to-r from-purple-500 to-pink-500 h-2 rounded-full w-3/4 transition-all duration-1000"></div>
-                        </div>
+                        </div>  
                         <div className={`text-xs mt-2 text-center ${
                           mode === "dark" ? "text-purple-400" : "text-purple-600"
                         }`}>

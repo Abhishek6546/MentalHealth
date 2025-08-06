@@ -1,109 +1,81 @@
-import { FaFacebookF, FaInstagram, FaXTwitter } from 'react-icons/fa6';
-import logo from './../assets/footer-logo.svg'; // adjust the path if needed
-import { useTheme } from '../context/ThemeContext';
+import React from 'react';
+import { Heart, Sparkles } from 'lucide-react';
+
+// Mock useTheme hook since ThemeContext is not available
+const useTheme = () => {
+  return { mode: 'light' }; // You can change this to 'dark' to test dark mode
+};
 
 function Footer() {
   const { mode } = useTheme();
+  const isDarkMode = mode === 'dark';
+  
   return (
     <footer 
-    className={`py-12 px-6 ${
-        mode === 'dark' ? 'bg-gray-900 text-gray-100' : 'bg-[#1e1232] text-white'
+      className={`py-12 px-4 sm:px-6 lg:px-8 ${
+        isDarkMode ? 'bg-gray-900 text-gray-100' : 'bg-gray-800 text-white'
       }`}
     >
-      <div className="max-w-[1240px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-10">
-
-        {/* Logo & Email Section */}
-        <div>
-          <div className="flex items-center space-x-3 mb-4">
-            <img src={logo} alt="MentalCare Logo" className="h-12 w-auto" />
+      <div className="max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div>
+            <div className="flex items-center space-x-3 mb-4">
+              {/* Use the heart icon logo design from second navbar */}
+              <div className="relative">
+                <Heart className={`h-10 w-10 ${isDarkMode ? 'text-blue-400' : 'text-blue-600'}`} />
+                <Sparkles className={`h-4 w-4 ${isDarkMode ? 'text-yellow-400' : 'text-yellow-500'} absolute -top-1 -right-1 animate-pulse`} />
+              </div>
+              <div>
+                <h1 className={`text-2xl font-bold bg-gradient-to-r ${
+                  isDarkMode 
+                    ? 'from-blue-400 to-green-400' 
+                    : 'from-blue-600 to-green-600'
+                } bg-clip-text text-transparent`}>
+                  MindFree
+                </h1>
+                <p className={`text-xs ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+                  Your Wellness Journey
+                </p>
+              </div>
+            </div>
+            <p className={`${isDarkMode ? 'text-gray-300' : 'text-gray-400'}`}>
+              Supporting your mental health journey with compassionate care and innovative tools.
+            </p>
           </div>
-          <p className={`text-sm mb-6 ${mode === 'dark' ? 'text-gray-300' : 'text-gray-300'}`}>
-            Start your path to psychological wellness with our thoroughly selected specialists.
-          </p>
-          <form   
-          className={`flex items-center rounded-full overflow-hidden w-full max-w-sm ${
-    mode === 'dark' ? 'bg-gray-800' : 'bg-white'
-  }`}
->
-            <input
-              type="email"
-              placeholder="Email*"
-              className={`flex-grow px-4 py-2 focus:outline-none ${
-      mode === 'dark'
-        ? 'bg-gray-800 text-white placeholder-gray-400'
-        : 'text-black'
-    }`}
-  />
-            <button type="submit" 
-            className="bg-[#c9e3fa] w-10 h-10 flex items-center justify-center rounded-full"
-            >
-              <span className="text-[#1e1232] text-xl mb-1">→</span>
-            </button>
-
-          </form>
+          
+          <div>
+            <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
+            <ul className={`space-y-2 ${isDarkMode ? 'text-gray-300' : 'text-gray-400'}`}>
+              <li><a href="/exercises" className="hover:text-white transition-colors">Exercises</a></li>
+              <li><a href="/dashboard" className="hover:text-white transition-colors">Dashboard</a></li>
+              <li><a href="/resources" className="hover:text-white transition-colors">Resources</a></li>
+            </ul>
+          </div>
+          
+          <div>
+            <h4 className="text-lg font-semibold mb-4">Support</h4>
+            <ul className={`space-y-2 ${isDarkMode ? 'text-gray-300' : 'text-gray-400'}`}>
+              <li><a href="/faq" className="hover:text-white transition-colors">FAQ</a></li>
+              <li><a href="/contact" className="hover:text-white transition-colors">Contact</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">Privacy Policy</a></li>
+            </ul>
+          </div>
+          
+          <div>
+            <h4 className="text-lg font-semibold mb-4">Emergency</h4>
+            <p className={`mb-2 ${isDarkMode ? 'text-gray-300' : 'text-gray-400'}`}>
+              Crisis Text Line: Text HOME to 741741
+            </p>
+            <p className={`${isDarkMode ? 'text-gray-300' : 'text-gray-400'}`}>
+              National Suicide Prevention Lifeline: 988
+            </p>
+          </div>
         </div>
-
-        {/* Pages */}
-        <div>
-          <h3 className="text-lg font-serif font-semibold mb-4">Pages</h3>
-          <ul className="space-y-2 text-sm text-gray-300">
-            <li><a href="#" className="hover:text-white">About Us</a></li>
-            <li><a href="#" className="hover:text-white">Our Services</a></li>
-            <li><a href="#" className="hover:text-white">Blog</a></li>
-            <li><a href="#" className="hover:text-white">Contacts</a></li>
-            <li><a href="#" className="hover:text-white">Shop</a></li>
-            <li><a href="#" className="hover:text-white">Image Credits</a></li>
-          </ul>
-        </div>
-
-        {/* Services */}
-        <div>
-          <h3 className="text-lg font-serif font-semibold mb-4">Services</h3>
-          <ul className="space-y-2 text-sm text-gray-300">
-            <li>Anxiety</li>
-            <li>Relationships</li>
-            <li>Eating Disorders</li>
-            <li>Depression</li>
-            <li>ADHD</li>
-            <li>Childhood Abuse</li>
-            <li>OCD</li>
-            <li>Trauma</li>
-          </ul>
-        </div>
-
-        {/* Therapists */}
-        <div>
-          <h3 className="text-lg font-serif font-semibold mb-4">Therapists</h3>
-          <ul className="space-y-2 text-sm text-gray-300">
-            <li>Mark Hoffman</li>
-            <li>Anne Middleton</li>
-            <li>Whitney Pratt</li>
-            <li>Jane Goodman</li>
-            <li>Martha Ruiz</li>
-            <li>Kate Adams</li>
-          </ul>
-        </div>
-      </div>
-
-      {/* Bottom row */}
-      <div className="max-w-[1240px] mx-auto mt-10 px-2 flex flex-col md:flex-row items-center justify-between gap-4">
-        <p     
-         className={`text-sm text-center md:text-left ${
-            mode === 'dark' ? 'text-gray-400' : 'text-gray-400'
-          }`}
-        >
-          This is a sample website – cmsmasters © 2025 – All Rights Reserved
-        </p>
-        <div className="flex space-x-3">
-          <a href="#" className="bg-[#c9e3fa] text-[#1e1232] p-2 rounded-full hover:scale-105 transition">
-            <FaFacebookF />
-          </a>
-          <a href="#" className="bg-[#c9e3fa] text-[#1e1232] p-2 rounded-full hover:scale-105 transition">
-            <FaInstagram />
-          </a>
-          <a href="#" className="bg-[#c9e3fa] text-[#1e1232] p-2 rounded-full hover:scale-105 transition">
-            <FaXTwitter />
-          </a>
+        
+        <div className={`border-t mt-8 pt-8 text-center ${
+          isDarkMode ? 'border-gray-600 text-gray-400' : 'border-gray-700 text-gray-400'
+        }`}>
+          <p>&copy; 2024 MindFree. All rights reserved. Made with ❤️ for mental wellness.</p>
         </div>
       </div>
     </footer>
