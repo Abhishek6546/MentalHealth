@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { ToastContainer, toast } from "../toastSetup";
 import { useNavigate, Link } from "react-router-dom";
 import { loginUser } from "../services/api"; 
 import { useAuth } from "../context/useAuth"; 
@@ -44,12 +45,16 @@ const Login = () => {
         localStorage.setItem("token", data.token);
         setToken(data.token);
         navigate("/dashboard");
+      } else if (data?.error) {
+        toast.error(data.error);
+      } else if (data?.message) {
+        toast.error(data.message);
       } else {
-        alert("Login failed. Please check credentials.");
+        toast.error("Login failed. Please check credentials.");
       }
     } catch (error) {
       if (error instanceof ZodError) {
-        alert(error.issues[0].message);
+        toast.error(error.issues[0].message);
       } else {
         console.error("Login error:", error);
       }
@@ -59,12 +64,14 @@ const Login = () => {
   };
 
   return (
-    <div className={`min-h-screen flex items-center justify-center relative overflow-hidden ${
-      isDarkMode 
-        ? 'bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900' 
-        : 'bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50'
-    }`}>
-      {/* Animated Background Elements */}
+    <>
+      <ToastContainer position="top-center" autoClose={3500} hideProgressBar={false} newestOnTop closeOnClick pauseOnFocusLoss pauseOnHover theme={isDarkMode ? 'dark' : 'light'} />
+      <div className={`min-h-screen flex items-center justify-center relative overflow-hidden ${
+        isDarkMode 
+          ? 'bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900' 
+          : 'bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50'
+      }`}>
+        {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {/* Floating Circles */}
         <div className={`absolute top-20 left-20 w-32 h-32 ${isDarkMode ? 'bg-blue-600' : 'bg-blue-300'} rounded-full opacity-20 animate-pulse`}></div>
@@ -209,15 +216,7 @@ const Login = () => {
               )}
             </button>
 
-            {/* Forgot Password */}
-            <div className="text-center">
-              <a
-                href="#"
-                className={`text-sm ${isDarkMode ? 'text-blue-400 hover:text-blue-300' : 'text-blue-600 hover:text-blue-800'} transition-colors font-medium`}
-              >
-                Forgot your password?
-              </a>
-            </div>
+
           </form>
 
           {/* Sign Up Link */}
@@ -243,6 +242,7 @@ const Login = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

@@ -2,9 +2,8 @@ import { useEffect, useState } from "react";
 import { fetchJournal } from "../services/api";
 import { useAuth } from "../context/useAuth";
 import { jwtDecode } from "jwt-decode";
-import { useNavigate } from "react-router-dom";
 import { useTheme } from "../context/ThemeContext";
-
+import { useNavigate } from "react-router-dom";
 interface JournalEntry {
   _id: string;
   thought: string;
@@ -22,14 +21,10 @@ const JournalHistory = () => {
   const [entries, setEntries] = useState<JournalEntry[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedMood, setSelectedMood] = useState("all");
-  const navigate = useNavigate();
   const { mode } = useTheme();
-
+  const navigate = useNavigate();
   useEffect(() => {
-    if (!token) {
-      navigate("/login");
-    }
-
+    if (!token) return;
     const getData = async () => {
       if (token) {
         const decoded = jwtDecode<TokenPayload>(token);
@@ -39,7 +34,7 @@ const JournalHistory = () => {
       }
     };
     getData();
-  }, [navigate, token]);
+  }, [token]);
 
   // Filter entries based on search and mood
   const filteredEntries = entries.filter(entry => {
@@ -64,6 +59,14 @@ const JournalHistory = () => {
     "Loved": "🥰",
     "Tired": "😴"
   };
+
+  if (!token) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <h2 className="text-2xl font-semibold">No history found</h2>
+      </div>
+    );
+  }
 
   return (
     <div
@@ -92,7 +95,7 @@ const JournalHistory = () => {
           
 
            <button
-              onClick={() => navigate("/")}
+              onClick={() => navigate("/dashboard")}
               className={`inline-flex items-center justify-center mb-6 px-4 py-2 rounded-full font-medium transition-all duration-300 hover:scale-105 ${
                 mode === "dark"
                   ? "bg-gray-800/60 border border-gray-700 text-gray-300 hover:bg-gray-700/60"

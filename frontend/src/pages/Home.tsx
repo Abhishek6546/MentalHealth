@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Wind,
   MessageCircle,
@@ -20,6 +20,7 @@ import { useTheme } from "../context/ThemeContext";
 
 function Home() {
   const { mode } = useTheme();
+  const navigate = useNavigate();
   const [selectedMood, setSelectedMood] = useState<string | null>(null);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   // const [formData, setFormData] = useState({
@@ -352,8 +353,13 @@ function Home() {
             ))}
           </div>
 
-          <Link
-            to="/dashboard"
+          <button
+            disabled={!selectedMood}
+            onClick={() => {
+              if (selectedMood) {
+                navigate('/dashboard', { state: { mood: selectedMood } });
+              }
+            }}
             className={`bg-gradient-to-r from-blue-600 to-green-600 text-white px-10 py-4 rounded-full font-semibold hover:from-blue-700 hover:to-green-700 transition-all duration-300 shadow-xl transform hover:scale-105 ${!selectedMood
               ? "opacity-50 cursor-not-allowed pointer-events-none"
               : "hover:shadow-blue-500/25"
@@ -361,7 +367,7 @@ function Home() {
           >
             Get Personalized Support
             <ChevronRight className="inline ml-2 h-5 w-5" />
-          </Link>
+          </button>
         </div>
       </section>
 

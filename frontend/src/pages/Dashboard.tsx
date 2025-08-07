@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import JournalForm from "../components/JournalForm";
 import MoodChart from "../components/MoodChart";
 import { useAuth } from "../context/useAuth";
@@ -14,11 +14,12 @@ type TokenPayload = {
 
 function Dashboard() {
   const navigate = useNavigate();
+  const location = useLocation();
   const { token } = useAuth();
   const { mode } = useTheme();
-  
   const [userId, setUserId] = useState<string>("");
-  
+  const initialMood = location.state?.mood || undefined;
+
   useEffect(() => {
     if (!token) {
       navigate("/login");
@@ -97,7 +98,7 @@ function Dashboard() {
                     mode === "dark" ? "bg-blue-600 opacity-30" : "bg-blue-300 opacity-10"
                   }`}></div>
                   <div className="relative h-full">
-                    <JournalForm />
+                    <JournalForm initialMood={initialMood} />
                   </div>
                 </div>
               </div>

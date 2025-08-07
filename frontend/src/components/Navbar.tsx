@@ -225,28 +225,45 @@ const Navbar = () => {
               >
                 Home
               </Link>
-              <Link 
-                to="/signup" 
-                onClick={closeMenu} 
-                className={`px-4 py-3 ${
-                  isDarkMode 
-                    ? 'text-white hover:text-gray-300 hover:bg-gray-800' 
-                    : 'text-[#1e1232] hover:text-gray-600 hover:bg-blue-50'
-                } rounded-lg transition-all duration-300`}
-              >
-                Sign Up
-              </Link>
-              <Link 
-                to="/login" 
-                onClick={closeMenu} 
-                className={`px-4 py-3 ${
-                  isDarkMode 
-                    ? 'text-white hover:text-gray-300 hover:bg-gray-800' 
-                    : 'text-[#1e1232] hover:text-gray-600 hover:bg-blue-50'
-                } rounded-lg transition-all duration-300`}
-              >
-                Login
-              </Link>
+              {!user && (
+                <>
+                  <Link 
+                    to="/signup" 
+                    onClick={closeMenu} 
+                    className={`px-4 py-3 ${
+                      isDarkMode 
+                        ? 'text-white hover:text-gray-300 hover:bg-gray-800' 
+                        : 'text-[#1e1232] hover:text-gray-600 hover:bg-blue-50'
+                    } rounded-lg transition-all duration-300`}
+                  >
+                    Sign Up
+                  </Link>
+                  <Link 
+                    to="/login" 
+                    onClick={closeMenu} 
+                    className={`px-4 py-3 ${
+                      isDarkMode 
+                        ? 'text-white hover:text-gray-300 hover:bg-gray-800' 
+                        : 'text-[#1e1232] hover:text-gray-600 hover:bg-blue-50'
+                    } rounded-lg transition-all duration-300`}
+                  >
+                    Login
+                  </Link>
+                </>
+              )}
+              {user && (
+                <Link 
+                  to="/profile" 
+                  onClick={closeMenu} 
+                  className={`px-4 py-3 ${
+                    isDarkMode 
+                      ? 'text-white hover:text-gray-300 hover:bg-gray-800' 
+                      : 'text-[#1e1232] hover:text-gray-600 hover:bg-blue-50'
+                  } rounded-lg transition-all duration-300`}
+                >
+                  Profile
+                </Link>
+              )}
               <Link 
                 to="/dashboard" 
                 onClick={closeMenu} 
@@ -269,17 +286,7 @@ const Navbar = () => {
               >
                 Exercise
               </Link>
-              <Link 
-                to="/profile" 
-                onClick={closeMenu} 
-                className={`px-4 py-3 ${
-                  isDarkMode 
-                    ? 'text-white hover:text-gray-300 hover:bg-gray-800' 
-                    : 'text-[#1e1232] hover:text-gray-600 hover:bg-blue-50'
-                } rounded-lg transition-all duration-300`}
-              >
-                Profile
-              </Link>
+             
               <Link 
                 to="/resources" 
                 onClick={closeMenu} 

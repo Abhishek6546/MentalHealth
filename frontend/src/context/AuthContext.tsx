@@ -12,6 +12,7 @@ const [user, setUser] = useState<UserType | null>(null);
   const logout=()=>{
     localStorage.removeItem("token")
      navigate("/login")
+     window.location.reload();
   }
   const fetchUserProfile= async()=>{
     const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:5000/";
