@@ -264,15 +264,7 @@ const Signup = () => {
               )}
             </button>
 
-            {/* Forgot Password */}
-            <div className="text-center">
-              <a
-                href="#"
-                className={`text-sm ${isDarkMode ? 'text-blue-400 hover:text-blue-300' : 'text-blue-600 hover:text-blue-800'} transition-colors font-medium`}
-              >
-                Forgot Password
-              </a>
-            </div>
+
           </form>
 
       

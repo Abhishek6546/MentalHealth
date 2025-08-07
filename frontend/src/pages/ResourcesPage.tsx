@@ -1,6 +1,7 @@
 import { useTheme } from "../context/ThemeContext";
-
+import { useNavigate } from "react-router-dom";
 const ResourcesPage = () => {
+  const navigate = useNavigate();
   const { mode } = useTheme();
   const quotes = [
     "You don't have to control your thoughts. You just have to stop letting them control you. – Dan Millman",
@@ -126,7 +127,7 @@ const ResourcesPage = () => {
 
               {/* Quick Action Button */}
               <div className="mt-6 pt-6 border-t border-gray-200/20">
-                <button className={`w-full py-3 px-4 rounded-xl font-semibold transition-all duration-200 hover:scale-105 ${
+                <button onClick={() => navigate('/dashboard')} className={`w-full py-3 px-4 rounded-xl font-semibold transition-all duration-200 hover:scale-105 ${
                   mode === "dark"
                     ? "bg-gradient-to-r from-green-600 to-emerald-600 text-white hover:from-green-500 hover:to-emerald-500"
                     : "bg-gradient-to-r from-green-500 to-emerald-600 text-white hover:from-green-600 hover:to-emerald-700"

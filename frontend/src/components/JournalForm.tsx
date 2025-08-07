@@ -3,14 +3,22 @@ import { useAuth } from "../context/useAuth";
 import { useTheme } from "../context/ThemeContext";
 
 
-const JournalForm = () => {
+interface JournalFormProps {
+  initialMood?: string;
+}
+
+const JournalForm = ({ initialMood }: JournalFormProps) => {
   const [thought, setThought] = useState("");
-  const [mood, setMood] = useState("Neutral");
+  const [mood, setMood] = useState(initialMood || "Neutral");
   const [aiReply, setAiReply] = useState("");
   const [loading, setLoading] = useState(false);
   const [entryCount, setEntryCount] = useState(0);
   const { token } = useAuth();
   const { mode } = useTheme();
+
+  useEffect(() => {
+    if (initialMood) setMood(initialMood);
+  }, [initialMood]);
 
   const MAX_ENTRIES = 10;
 
@@ -283,23 +291,7 @@ const JournalForm = () => {
                 {aiReply}
               </p>
               
-              {/* Reaction buttons */}
-              <div className="flex items-center mt-4 space-x-3">
-                <button className={`px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-200 hover:scale-105 ${
-                  mode === "dark"
-                    ? "bg-green-800/50 text-green-200 hover:bg-green-700/50"
-                    : "bg-green-200/50 text-green-700 hover:bg-green-300/50"
-                }`}>
-                  👍 Helpful
-                </button>
-                <button className={`px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-200 hover:scale-105 ${
-                  mode === "dark"
-                    ? "bg-green-800/50 text-green-200 hover:bg-green-700/50"
-                    : "bg-green-200/50 text-green-700 hover:bg-green-300/50"
-                }`}>
-                  💡 Insightful
-                </button>
-              </div>
+             
             </div>
           </div>
         </div>

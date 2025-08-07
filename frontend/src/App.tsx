@@ -1,4 +1,5 @@
 import {  Routes, Route } from "react-router-dom";
+import ScrollToTop from "./components/ScrollToTop";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import Navbar from "./components/Navbar";
@@ -18,6 +19,7 @@ function App() {
    <div>
     <ThemeProvider>
     <Navbar />
+    <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home/>} />
         <Route path="/signup" element={<Signup />} />
