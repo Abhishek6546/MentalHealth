@@ -43,12 +43,12 @@ const MoodChart = ({ userId }: { userId: string }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [averageMood, setAverageMood] = useState(0);
   const { mode } = useTheme();
-
+  const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:5000/";
   useEffect(() => {
     const fetchMoods = async () => {
       try {
         setIsLoading(true);
-        const res = await fetch(`http://localhost:5000/api/journal/moods/${userId}`);
+        const res = await fetch(`${apiUrl}api/journal/moods/${userId}`);
         const raw = await res.json();
 
         const processed = raw.map((entry: MoodEntry) => ({
