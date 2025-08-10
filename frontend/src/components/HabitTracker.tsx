@@ -9,27 +9,105 @@ interface StreakData {
 
 const HabitTracker = () => {
   const [data, setData] = useState<StreakData | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const { token } = useAuth();
   const { mode } = useTheme();
 
   useEffect(() => {
     const fetchStreak = async () => {
-      const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:5000/";
+      if (!token) {
+        setLoading(false);
+        return;
+      }
 
-      const res = await fetch(`${apiUrl}api/journal/streak`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      try {
+        setLoading(true);
+        setError(null);
+        const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:5000/";
+
+        const res = await fetch(`${apiUrl}api/journal/streak`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (!res.ok) {
+          throw new Error('Failed to fetch streak data');
+        }
    
-      const result = await res.json();
-      setData(result);
+        const result = await res.json();
+        setData(result);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'An error occurred');
+        console.error('Error fetching streak data:', err);
+      } finally {
+        setLoading(false);
+      }
     };
 
     fetchStreak();
   }, [token]);
 
-  if (!data) return null;
+  // Show loading state instead of null
+  if (loading) {
+    return (
+      <div className={`h-full rounded-3xl border backdrop-blur-sm transition-all duration-500 ${
+        mode === "dark" 
+          ? "bg-gray-800/50 border-gray-700/50" 
+          : "bg-white/70 border-gray-200/50"
+      }`}>
+        <div className="p-6 h-full flex items-center justify-center">
+          <div className="text-center space-y-4">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500 mx-auto"></div>
+            <p className={`text-sm ${
+              mode === "dark" ? "text-gray-400" : "text-gray-600"
+            }`}>Loading habit tracker...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Show error state
+  if (error) {
+    return (
+      <div className={`h-full rounded-3xl border backdrop-blur-sm transition-all duration-500 ${
+        mode === "dark" 
+          ? "bg-gray-800/50 border-gray-700/50" 
+          : "bg-white/70 border-gray-200/50"
+      }`}>
+        <div className="p-6 h-full flex items-center justify-center">
+          <div className="text-center space-y-4">
+            <div className="text-red-500 text-2xl">⚠️</div>
+            <p className={`text-sm ${
+              mode === "dark" ? "text-gray-400" : "text-gray-600"
+            }`}>Failed to load habit data</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Show default state if no data
+  if (!data) {
+    return (
+      <div className={`h-full rounded-3xl border backdrop-blur-sm transition-all duration-500 ${
+        mode === "dark" 
+          ? "bg-gray-800/50 border-gray-700/50" 
+          : "bg-white/70 border-gray-200/50"
+      }`}>
+        <div className="p-6 h-full flex items-center justify-center">
+          <div className="text-center space-y-4">
+            <div className="text-4xl">🌱</div>
+            <p className={`text-sm ${
+              mode === "dark" ? "text-gray-400" : "text-gray-600"
+            }`}>Start your habit journey!</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   // Generate streak visualization
   const maxDisplayDays = 14;
